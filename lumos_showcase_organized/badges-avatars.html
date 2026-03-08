@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 3. Badges &amp; Avatars</title>
+<style>
+    :root {--color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;--color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;--color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;--color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;--color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;--color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);--radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;--space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;--size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;--font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;--transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; line-height: 1.5; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+    .flex-row { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .flex-col { display: flex; flex-direction: column; gap: var(--space-4); }.badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+      white-space: nowrap;
+      transition: var(--transition-fast);
+    }
+    .badge-solid-blue { background: var(--color-primary-600); color: var(--color-text-inverse); }
+    .badge-solid-green { background: var(--color-success); color: var(--color-text-inverse); }
+    .badge-solid-amber { background: var(--color-warning); color: var(--color-text-inverse); }
+    .badge-solid-red { background: var(--color-error); color: var(--color-text-inverse); }
+    .badge-soft-blue { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .badge-soft-green { background: var(--color-success-bg); color: var(--color-success); }
+    .badge-soft-amber { background: var(--color-warning-bg); color: var(--color-warning); }
+    .badge-soft-red { background: var(--color-error-bg); color: var(--color-error); }
+    .badge-outline-blue { background: transparent; border: 1px solid var(--color-primary-600); color: var(--color-primary-700); }
+    .badge-outline-slate { background: transparent; border: 1px solid var(--color-border-strong); color: var(--color-text-secondary); }
+    .badge-dot::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .badge-dot-green::before { background: var(--color-success); }
+    .badge-dot-amber::before { background: var(--color-warning); }
+    .badge-count {
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      justify-content: center;
+      background: var(--color-primary-600);
+      color: var(--color-text-inverse);
+    }
+    .badge-closable {
+      padding-right: 4px;
+    }
+    .badge-close-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: inherit;
+      opacity: 0.7;
+      transition: var(--transition-fast);
+    }
+    .badge-close-btn:hover { opacity: 1; background: rgba(0,0,0,0.1); }.avatar {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      background: var(--color-slate-200);
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-sm { width: 32px; height: 32px; font-size: var(--font-size-xs); }
+    .avatar-md { width: 40px; height: 40px; font-size: var(--font-size-sm); }
+    .avatar-lg { width: 64px; height: 64px; font-size: var(--font-size-xl); }
+    .avatar-text { background: var(--color-primary-100); color: var(--color-primary-700); }
+    .avatar-status-wrap { position: relative; display: inline-block; }
+    .avatar-status {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--color-bg-primary);
+    }
+    .status-online { background: var(--color-success); }
+    .status-offline { background: var(--color-slate-400); }
+    .status-away { background: var(--color-warning); }
+    .avatar-group { display: flex; align-items: center; }
+    .avatar-group .avatar {
+      border: 2px solid var(--color-bg-primary);
+      margin-left: -8px;
+    }
+    .avatar-group .avatar:first-child { margin-left: 0; }
+    .avatar-group .avatar-count {
+      background: var(--color-slate-100);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-xs);
+    }.tooltip-container { position: relative; display: inline-flex; cursor: pointer; }
+    .tooltip {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      background: var(--color-slate-800);
+      color: var(--color-text-inverse);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      white-space: nowrap;
+      z-index: 10;
+      transition: var(--transition-fast);
+      box-shadow: var(--shadow-md);
+    }
+    .tooltip-container:hover .tooltip { visibility: visible; opacity: 1; }
+    .tooltip-top { bottom: 100%; left: 50%; transform: translate(-50%, -8px); }
+    .tooltip-bottom { top: 100%; left: 50%; transform: translate(-50%, 8px); }
+    .tooltip-left { right: 100%; top: 50%; transform: translate(-8px, -50%); }
+    .tooltip-right { left: 100%; top: 50%; transform: translate(8px, -50%); }
+    .tooltip-arrow::after {
+      content: '';
+      position: absolute;
+      border: 4px solid transparent;
+    }
+    .tooltip-top.tooltip-arrow::after { top: 100%; left: 50%; transform: translateX(-50%); border-top-color: var(--color-slate-800); }
+    .tooltip-bottom.tooltip-arrow::after { bottom: 100%; left: 50%; transform: translateX(-50%); border-bottom-color: var(--color-slate-800); }
+    .tooltip-left.tooltip-arrow::after { left: 100%; top: 50%; transform: translateY(-50%); border-left-color: var(--color-slate-800); }
+    .tooltip-right.tooltip-arrow::after { right: 100%; top: 50%; transform: translateY(-50%); border-right-color: var(--color-slate-800); }
+    .tooltip-light {
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-default);
+      box-shadow: var(--shadow-lg);
+    }
+    .tooltip-top.tooltip-light.tooltip-arrow::after { border-top-color: var(--color-border-default); }
+    .tooltip-multiline { white-space: normal; width: 200px; line-height: 1.5; }.hr {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: var(--font-size-xs);
+      margin: 16px 0;
+    }
+    .hr::before, .hr::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .hr:not(:empty)::before { margin-right: 12px; }
+    .hr:not(:empty)::after { margin-left: 12px; }
+    .hr-dashed::before, .hr-dashed::after { border-bottom-style: dashed; }
+    .hr-vertical {
+      display: inline-block;
+      width: 1px;
+      height: 24px;
+      background: var(--color-border-default);
+      margin: 0 16px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 3. Badges &amp; Avatars</h1>
+<p class="page-desc">A collection of UI utility components following the LUMOS V2.0 Design System. Includes badges, avatars, tooltips, and dividers.</p>
+<hr class="divider"/>
+<h3 class="section-title">1. Badges</h3>
+<div class="flex-col">
+<div class="flex-row">
+<span class="badge badge-solid-blue">In Progress</span>
+<span class="badge badge-solid-green">Completed</span>
+<span class="badge badge-solid-amber">Pending</span>
+<span class="badge badge-solid-red">Urgent</span>
+</div>
+<div class="flex-row">
+<span class="badge badge-soft-blue">In Progress</span>
+<span class="badge badge-soft-green">Completed</span>
+<span class="badge badge-soft-amber">Pending</span>
+<span class="badge badge-soft-red">Urgent</span>
+</div>
+<div class="flex-row">
+<span class="badge badge-outline-blue">Outline Blue</span>
+<span class="badge badge-outline-slate">Outline Slate</span>
+</div>
+<div class="flex-row">
+<span class="badge badge-soft-slate badge-dot badge-dot-green">Online</span>
+<span class="badge badge-soft-slate badge-dot badge-dot-amber">Away</span>
+</div>
+<div class="flex-row">
+<span class="badge badge-count">5</span>
+</div>
+<div class="flex-row">
+<span class="badge badge-soft-blue badge-closable">
+          Closable
+          <span class="badge-close-btn">
+<svg fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="10"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</span>
+</span>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">2. Avatars</h3>
+<div class="flex-col">
+<div class="flex-row">
+<div class="avatar avatar-sm"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6DGyrTFkZQVR-GVZr-PMLd5FueAtxFwoWyAjWf_hjafblutS5om9RklbteZn9NZQ8k-KZaii7w5bvFqwEUTh32xK7n2v69eet_M2v3GJ4_DFe3W0Lvwi6B9YYYOM7uHUr6nxGZmCxzxh4P0-xkuXphT-jqdAP15yCOfMR-QZ3wp4WzwlXuz2b_z6XaCIKG1vQN2cL6WA6h2AAIypRyBV4F3H7BxOD_RIofV53EAaYnjUmN0pTb3OsizX3pTtop8EYGaly_NtZ3pek"/></div>
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEbacELmuXCa6-3FiFF-wUZLNv5ycxLxhwTN7XQp3S6j53SayhynoiiL9OqC6cIWI0REHbrEerj1jrZm24yZm88K11EiZpBqvstuzITkptIcOc2jAVaqFHSyyjGVQdsT3nINCjGca6ND3viitrZZebQbVjnJf7hC0_b2VasNs_Rs5ccGdSYpNJ8mVr3QtLTSRKOHM-8iNI0-Mu9lwVxkig8aGc8egxIyPDjxgTanR3VBO1qiBaPKSGv_GkahTofJy4OdKRNuUA84Ab"/></div>
+<div class="avatar avatar-lg"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKGwidBUwS3er-jqq7Q80eyRWdBfgtHZ3pvf-uYT81AG4kKXgbHK9XGuH0SvFpAF8Qfe8k8NFQkAQ-QJXet6Qa0bwrHgQdlraZM_Mb1QJ2vf__KvydpoZTmc5Kanto5jeAGAoYsskDL8x5jFLTim_s3c8pxGMl2YVY7R8Cx1xTlU1K61lGth8vG_fQ3jIYjG240fWLaicKf_5a61yDkXDglL1TiPjMfOf5ZJpEPX22j2p86WLrYBC2WxsCACvS44dxgM2qMxpvCrTe"/></div>
+</div>
+<div class="flex-row">
+<div class="avatar avatar-md avatar-text">JS</div>
+<div class="avatar avatar-md avatar-text">LW</div>
+<div class="avatar avatar-md avatar-text">MK</div>
+</div>
+<div class="flex-row">
+<div class="avatar avatar-md">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+</div>
+<div class="flex-row">
+<div class="avatar-status-wrap">
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXFaN2WIcGbtixSaVoh5GN0pVSrRds8WSMtxgyCElXh9YUY1Yb8FZT9wmpfNVe_ggM5Ou5PYRT2pv2fdrTH2QmIqotRXosqm4RdLQkCGBGr3FNMluc7TWNehwuDHd3Pw3asYHWjN045sv_nQYxDZFmSGhwN02XqYiM2yDORqOvMFnsaqXsFwUNFzOcqoX3EB6WXfSpa0F7mRlObwvjr5fowjpBIJXDj9HhJ6-Nitllq7sL4CZ-bW1pz6X-Ct8XT5Nk4WnNkdKeQi0y"/></div>
+<div class="avatar-status status-online"></div>
+</div>
+<div class="avatar-status-wrap">
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE74LfzUaSXJ4VJ5RM6M8sqvlJ59Di9st6lAQT253VVSwOI09UfGIbA6NPRZcfuyvQeSRUAtj0CMVXiwazMDTzMHfAgEidR-JW2jZW3253FKdn_BGIR7gAxoiJlNY93MMxDWBhTR4_jFUEyAGzxgWloo4eUborMz3XGl37ZVHR1otQL1n1G87ArMMxcCY2IxtIlraJGKef-mnO6yqeLoXY_4Zhrfa5r31O6Sw8Rp2NCFv6pkSKCh-nzu-AZIAWp5HgkGnEHAsjbNB4"/></div>
+<div class="avatar-status status-offline"></div>
+</div>
+<div class="avatar-status-wrap">
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUIiCZbA7OEyo3Az7QYdAhXKd87yOKw1ru6VrPnZcXR0KGjNHOWyt9XC594mL7ZjsCJv2GWfHxsmxvKhyzGG2tlRrkBwR_6zP_6K-6gG2goIEV8ZogUa-pHlUXiooUPnR-mbuUSAQnoOUgmfRcYyTyrHnG96n_MLm9MGNFeLcIzxZU-T_N9a5Ci-D_VcIv5luz74pmuaUuktTsxBE56_BJ_bjgYgce_7BQNqdSZ_BDXWLy0b49mk06FSS26MwmOyvbEic1gREy6wCV"/></div>
+<div class="avatar-status status-away"></div>
+</div>
+</div>
+<div class="flex-row">
+<div class="avatar-group">
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB69o4lKRAVnrQ7JLJYgf-sr3Y9oDj9NBT6FJ1a5izME64fUsG-yi2sRRBi1YfuIMgg6P6T3KUiyga5mXM4Ji2k7ZTkwd53RJnlbIjKLYZZ46un3mbliIuJAiIoye7AkswvurCTfo1ywmT-eePyVz3iGZOVGBVQTMLa_FK3tJe-GPgjnsryYACfKgxiGyRu8ndd5Y4g_LmCtlWIVIxRvBSxGJ6IGk8vI1XKRNT3-B89t3MZKPIpnD-yv8NH1XdyzCAQoozKpQfc8DOH"/></div>
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8hQJtsj7-hF3OxTVEliQ0ggFRUjnNIWYEumOrC42jVWAT1JGqIFqXGhYXj8tCMHgEChedeeV2KDXNt5XicQANFe6KhR6SXaWizgC1K3rticUMvTTkIt--u_DidJ2vdV6sI-5y8XSodpMSXqbhTur-Olj08R3sp_fEkCgwjemtAuElHo4rEMRQISxM3fljEHQWNyqATK1mf9v3UdXqWHi9MitJIHbJwgb_m6sr-28KAje9U-EPqoAayaAXcwtlQGs8qGsIT_5IPbW0"/></div>
+<div class="avatar avatar-md"><img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMurUrYmVvLv8tUAUfPTMeD-lLIUW60KJUnPIZtJIv9aS54O9Hpc110osmsLeeke3rNUjr0677tjRmrAOLaBt3MAW-vT5Va6DXALlrZ52dDjb1MDpX2jugpAWMKY1Xd3h18mU-qHLV1kpSwsjV9c--naufqBI4O__jImpKmpIQS6gsS_MB_plXbOaY9jmKg7nKlYH08uDnuDC5BbURjDWYYTf3sQistYQU3AuX-WCMtmhvnKjIikPqGqfkEPfc_80mMklHeBIdOZ75"/></div>
+<div class="avatar avatar-md avatar-count">+3</div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">3. Tooltips</h3>
+<div class="flex-row" style="margin-top: 24px; margin-bottom: 24px;">
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">Hover Top</span>
+<div class="tooltip tooltip-top">Tooltip Top</div>
+</div>
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">Hover Bottom</span>
+<div class="tooltip tooltip-bottom">Tooltip Bottom</div>
+</div>
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">Hover Left</span>
+<div class="tooltip tooltip-left">Tooltip Left</div>
+</div>
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">Hover Right</span>
+<div class="tooltip tooltip-right">Tooltip Right</div>
+</div>
+</div>
+<div class="flex-row" style="margin-bottom: 24px;">
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">With Arrow</span>
+<div class="tooltip tooltip-top tooltip-arrow">Tooltip with Arrow</div>
+</div>
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">Light Theme</span>
+<div class="tooltip tooltip-top tooltip-arrow tooltip-light">Light Tooltip</div>
+</div>
+<div class="tooltip-container">
+<span class="badge badge-outline-slate">Multiline</span>
+<div class="tooltip tooltip-top tooltip-multiline">This is a multiline tooltip that can hold a longer description or extra context for the user.</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">4. Dividers</h3>
+<div class="flex-col" style="gap: 32px;">
+<div>
+<div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 8px;">Solid Divider</div>
+<div class="hr"></div>
+</div>
+<div>
+<div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 8px;">Dashed Divider</div>
+<div class="hr hr-dashed"></div>
+</div>
+<div>
+<div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 8px;">With Text</div>
+<div class="hr">OR</div>
+</div>
+<div>
+<div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 8px;">With Icon</div>
+<div class="hr">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+</div>
+</div>
+<div>
+<div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 8px;">Vertical Divider</div>
+<div style="display: flex; align-items: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+<span>Left content</span>
+<span class="hr-vertical"></span>
+<span>Right content</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function toggleActive(el) { el.classList.toggle('active'); }
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+
+</body></html>

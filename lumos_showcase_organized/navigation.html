@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 5. Navigation</title>
+<style>
+    :root {--color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;--color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;--color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;--color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;--color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;--color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);--radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;--space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;--size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;--font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;--transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+    .subsection-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }.flex { display: flex; }
+    .flex-col { display: flex; flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: var(--space-2); }
+    .gap-3 { gap: var(--space-3); }
+    .gap-4 { gap: var(--space-4); }.nav-container {
+      width: var(--size-sidebar-width);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2) 0;
+      background: var(--color-bg-primary);
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: var(--space-2) var(--space-4);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      transition: var(--transition-fast);
+      cursor: pointer;
+      position: relative;
+      border-left: 3px solid transparent;
+      user-select: none;
+    }
+    .nav-item:hover {
+      background: var(--color-bg-hover);
+      color: var(--color-text-primary);
+    }
+    .nav-item.active {
+      background: var(--color-bg-active);
+      color: var(--color-primary-600);
+      border-left-color: var(--color-primary-600);
+    }
+    .nav-icon {
+      margin-right: var(--space-3);
+      display: flex;
+    }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--color-primary-100);
+      color: var(--color-primary-700);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+    .nav-chevron {
+      margin-left: auto;
+      transition: var(--transition-fast);
+    }
+    .nav-submenu {
+      display: none;
+      flex-direction: column;
+      background: var(--color-bg-secondary);
+    }
+    .nav-submenu.open {
+      display: flex;
+    }
+    .nav-subitem {
+      padding: var(--space-2) var(--space-4) var(--space-2) 44px;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      text-decoration: none;
+      transition: var(--transition-fast);
+      cursor: pointer;
+    }
+    .nav-subitem:hover {
+      color: var(--color-text-primary);
+    }
+    .nav-subitem.active {
+      color: var(--color-primary-600);
+      font-weight: 500;
+    }
+    .nav-item.open .nav-chevron {
+      transform: rotate(180deg);
+    }.nav-collapsed {
+      width: var(--size-sidebar-collapsed);
+    }
+    .nav-collapsed .nav-item {
+      padding: var(--space-3);
+      justify-content: center;
+    }
+    .nav-collapsed .nav-icon {
+      margin-right: 0;
+    }
+    .nav-collapsed .nav-text,
+    .nav-collapsed .nav-badge,
+    .nav-collapsed .nav-chevron {
+      display: none;
+    }
+    .tooltip {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: var(--space-2);
+      background: var(--color-slate-800);
+      color: var(--color-text-inverse);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-fast);
+      z-index: 10;
+    }
+    .nav-collapsed .nav-item:hover .tooltip {
+      opacity: 1;
+    }.tabs-underline {
+      display: flex;
+      border-bottom: 1px solid var(--color-border-default);
+      gap: var(--space-6);
+    }
+    .tab-underline {
+      padding: var(--space-3) 0;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition-fast);
+    }
+    .tab-underline:hover {
+      color: var(--color-text-primary);
+    }
+    .tab-underline.active {
+      color: var(--color-primary-600);
+      border-bottom-color: var(--color-primary-600);
+    }.tabs-capsule {
+      display: inline-flex;
+      background: var(--color-bg-secondary);
+      padding: var(--space-1);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-default);
+    }
+    .tab-capsule {
+      padding: 6px var(--space-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: var(--transition-fast);
+    }
+    .tab-capsule:hover {
+      color: var(--color-text-primary);
+    }
+    .tab-capsule.active {
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-sm);
+    }.tabs-box {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .tab-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 72px;
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      gap: var(--space-1);
+    }
+    .tab-box-text {
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+    }
+    .tab-box:hover {
+      border-color: var(--color-border-strong);
+      color: var(--color-text-primary);
+      background: var(--color-bg-hover);
+    }
+    .tab-box.active {
+      border-color: var(--color-primary-600);
+      color: var(--color-primary-600);
+      background: var(--color-primary-50);
+    }.tabs-vertical {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      border-right: 1px solid var(--color-border-default);
+    }
+    .tab-vertical {
+      padding: var(--space-2) var(--space-3);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: var(--transition-fast);
+      margin-bottom: 2px;
+    }
+    .tab-vertical:hover {
+      color: var(--color-text-primary);
+      background: var(--color-bg-hover);
+    }
+    .tab-vertical.active {
+      color: var(--color-primary-600);
+      border-left-color: var(--color-primary-600);
+      background: var(--color-bg-active);
+    }.breadcrumb-container {
+      display: flex;
+      align-items: center;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .breadcrumb-item:hover {
+      color: var(--color-text-primary);
+    }
+    .breadcrumb-item.active {
+      color: var(--color-text-primary);
+      font-weight: 500;
+      cursor: default;
+    }
+    .breadcrumb-separator {
+      margin: 0 var(--space-2);
+      color: var(--color-text-muted);
+    }.pagination-container {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .page-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--size-control-sm);
+      height: var(--size-control-sm);
+      padding: 0 var(--space-2);
+      border: 1px solid var(--color-border-default);
+      background: var(--color-bg-primary);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .page-btn:hover:not(:disabled) {
+      background: var(--color-bg-hover);
+      color: var(--color-text-primary);
+      border-color: var(--color-border-strong);
+    }
+    .page-btn.active {
+      background: var(--color-primary-600);
+      color: var(--color-text-inverse);
+      border-color: var(--color-primary-600);
+    }
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .page-ellipsis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--size-control-sm);
+      color: var(--color-text-muted);
+    }
+    .page-text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin: 0 var(--space-2);
+    }.dropdown {
+      position: relative;
+    }
+    .dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 0 var(--space-3);
+      height: var(--size-control-sm);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .dropdown-trigger:hover {
+      background: var(--color-bg-hover);
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 120px;
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-1) 0;
+      z-index: 100;
+      display: none;
+    }
+    .dropdown.active .dropdown-menu {
+      display: block;
+    }
+    .dropdown-item {
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .dropdown-item:hover {
+      background: var(--color-bg-hover);
+      color: var(--color-text-primary);
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 5. Navigation</h1>
+<p class="page-desc">A collection of navigation and structural components following the LUMOS V2.0 Design System.</p>
+<hr class="divider"/>
+<h3 class="section-title">1. Nav Items (Sidebar Style)</h3>
+<div class="flex gap-4">
+<div>
+<h4 class="subsection-title">Full Width</h4>
+<div class="nav-container">
+<div class="nav-item">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</span>
+<span class="nav-text">Home</span>
+</div>
+<div class="nav-item active">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<rect height="9" width="7" x="3" y="3"></rect>
+<rect height="5" width="7" x="14" y="3"></rect>
+<rect height="9" width="7" x="14" y="12"></rect>
+<rect height="5" width="7" x="3" y="16"></rect>
+</svg>
+</span>
+<span class="nav-text">Dashboard</span>
+</div>
+<div class="nav-item">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+<polyline points="13 2 13 9 20 9"></polyline>
+</svg>
+</span>
+<span class="nav-text">Files</span>
+<span class="nav-badge">12</span>
+</div>
+<div class="nav-item open" onclick="toggleActive(this.nextElementSibling); this.classList.toggle('open')">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+</span>
+<span class="nav-text">Settings</span>
+<span class="nav-chevron">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</span>
+</div>
+<div class="nav-submenu open">
+<div class="nav-subitem">Security</div>
+<div class="nav-subitem active">Notifications</div>
+<div class="nav-subitem">Permissions</div>
+</div>
+</div>
+</div>
+<div>
+<h4 class="subsection-title">Collapsed</h4>
+<div class="nav-container nav-collapsed">
+<div class="nav-item">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</span>
+<div class="tooltip">Home</div>
+</div>
+<div class="nav-item active">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<rect height="9" width="7" x="3" y="3"></rect>
+<rect height="5" width="7" x="14" y="3"></rect>
+<rect height="9" width="7" x="14" y="12"></rect>
+<rect height="5" width="7" x="3" y="16"></rect>
+</svg>
+</span>
+<div class="tooltip">Dashboard</div>
+</div>
+<div class="nav-item">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+<polyline points="13 2 13 9 20 9"></polyline>
+</svg>
+</span>
+<div class="tooltip">Files (12)</div>
+</div>
+<div class="nav-item">
+<span class="nav-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+</span>
+<div class="tooltip">Settings</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">2. Tabs (4 Variants)</h3>
+<h4 class="subsection-title">Underline</h4>
+<div class="tabs-underline">
+<div class="tab-underline active">Overview</div>
+<div class="tab-underline">Analytics</div>
+<div class="tab-underline">Reports</div>
+<div class="tab-underline">Settings</div>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Capsule</h4>
+<div class="tabs-capsule">
+<div class="tab-capsule">Daily</div>
+<div class="tab-capsule active">Weekly</div>
+<div class="tab-capsule">Monthly</div>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Icon Boxes</h4>
+<div class="tabs-box">
+<div class="tab-box active">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" x2="12" y1="8" y2="12"></line>
+<line x1="12" x2="12.01" y1="16" y2="16"></line>
+</svg>
+<span class="tab-box-text">Alerts</span>
+</div>
+<div class="tab-box">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+</svg>
+<span class="tab-box-text">Messages</span>
+</div>
+<div class="tab-box">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span class="tab-box-text">Users</span>
+</div>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Vertical</h4>
+<div class="tabs-vertical">
+<div class="tab-vertical active">General Settings</div>
+<div class="tab-vertical">Billing &amp; Plans</div>
+<div class="tab-vertical">Team Members</div>
+<div class="tab-vertical">Integrations</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">3. Breadcrumbs (3 Variants)</h3>
+<h4 class="subsection-title">Slash Separator</h4>
+<div class="breadcrumb-container">
+<span class="breadcrumb-item">Home</span>
+<span class="breadcrumb-separator">/</span>
+<span class="breadcrumb-item">Projects</span>
+<span class="breadcrumb-separator">/</span>
+<span class="breadcrumb-item active">LUMOS Design System</span>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Icon + Chevron</h4>
+<div class="breadcrumb-container">
+<span class="breadcrumb-item">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</span>
+<span class="breadcrumb-separator">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="14">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+<span class="breadcrumb-item">Settings</span>
+<span class="breadcrumb-separator">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="14">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+<span class="breadcrumb-item active">Profile</span>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Dropdown Style</h4>
+<div class="breadcrumb-container">
+<span class="breadcrumb-item">Workspace</span>
+<span class="breadcrumb-separator">/</span>
+<div class="dropdown" onclick="toggleActive(this)">
+<span class="breadcrumb-item" style="gap: 4px;">
+          Folders
+          <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="14">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</span>
+<div class="dropdown-menu">
+<div class="dropdown-item">Active Projects</div>
+<div class="dropdown-item">Archived</div>
+<div class="dropdown-item">Templates</div>
+</div>
+</div>
+<span class="breadcrumb-separator">/</span>
+<span class="breadcrumb-item active">Current Project</span>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">4. Pagination (3 Variants)</h3>
+<h4 class="subsection-title">Full</h4>
+<div class="pagination-container">
+<button class="page-btn" disabled="">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+</button>
+<button class="page-btn active">1</button>
+<button class="page-btn">2</button>
+<button class="page-btn">3</button>
+<span class="page-ellipsis">...</span>
+<button class="page-btn">10</button>
+<button class="page-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Simple</h4>
+<div class="pagination-container">
+<button class="page-btn" disabled="">Previous</button>
+<span class="page-text">Page 1 of 10</span>
+<button class="page-btn">Next</button>
+</div>
+<div class="section-gap" style="height: 24px;"></div>
+<h4 class="subsection-title">Page Size + Pagination</h4>
+<div class="flex items-center justify-between" style="max-width: 600px;">
+<div class="dropdown" onclick="toggleActive(this)">
+<div class="dropdown-trigger">
+          Show 10
+          <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="14">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</div>
+<div class="dropdown-menu">
+<div class="dropdown-item">10 / page</div>
+<div class="dropdown-item">20 / page</div>
+<div class="dropdown-item">50 / page</div>
+</div>
+</div>
+<div class="pagination-container">
+<button class="page-btn" disabled="">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+</button>
+<button class="page-btn active">1</button>
+<button class="page-btn">2</button>
+<span class="page-ellipsis">...</span>
+<button class="page-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+</div>
+</div>
+</div>
+<script>
+    function toggleActive(el) { el.classList.toggle('active'); }
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+
+</body></html>

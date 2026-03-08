@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 14. Rich Components</title>
+<style data-purpose="tokens">
+    :root {
+      /* Primary Blue */
+      --color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;
+
+      /* Slate Gray */
+      --color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;
+
+      /* Text */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;
+
+      /* Semantic */
+      --color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;
+
+      /* Backgrounds */
+      --color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;
+
+      /* Borders */
+      --color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;
+
+      /* Spacing */
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+      /* Sizes */
+      --size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;
+
+      /* Font */
+      --font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+
+      /* Interaction */
+      --transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+  </style>
+<style data-purpose="base-layout">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+  </style>
+<style data-purpose="component-styles">
+    /* Utility Helpers */
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: var(--space-2); }
+    .gap-4 { gap: var(--space-4); }
+    .grid { display: grid; }
+    .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+    
+    /* Dock Styles */
+    .dock-container { display: flex; gap: var(--space-4); margin-bottom: 24px; padding: var(--space-4); background: var(--color-bg-secondary); border-radius: var(--radius-lg); }
+    .dock { background: var(--color-bg-primary); border: 1px solid var(--color-border-default); box-shadow: var(--shadow-md); border-radius: var(--radius-full); padding: var(--space-1); display: flex; align-items: center; }
+    .dock-item { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); color: var(--color-text-secondary); transition: var(--transition-fast); cursor: pointer; text-decoration: none; position: relative; }
+    .dock-item:hover { background: var(--color-bg-hover); color: var(--color-primary-600); }
+    .dock-item.active { background: var(--color-primary-50); color: var(--color-primary-600); }
+    .dock.vertical { flex-direction: column; width: fit-content; border-radius: var(--radius-xl); }
+    .dock-with-labels { border-radius: var(--radius-lg); padding: var(--space-2); }
+    .dock-with-labels .dock-item { width: auto; padding: 0 var(--space-3); gap: var(--space-2); border-radius: var(--radius-md); font-size: var(--font-size-sm); font-weight: 500; }
+    
+    /* Attachment Styles */
+    .attachment-card { border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: var(--space-3); display: flex; align-items: center; gap: var(--space-3); transition: var(--transition-fast); cursor: pointer; background: var(--color-bg-primary); }
+    .attachment-card:hover { border-color: var(--color-primary-300); box-shadow: var(--shadow-sm); }
+    .file-icon { width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--color-slate-100); display: flex; align-items: center; justify-content: center; color: var(--color-slate-500); }
+    .attachment-info { flex: 1; min-width: 0; }
+    .file-name { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-meta { font-size: var(--font-size-xs); color: var(--color-text-muted); }
+
+    /* Media Styles */
+    .media-card { border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-bg-primary); }
+    .media-placeholder { background: var(--color-slate-100); height: 160px; display: flex; align-items: center; justify-content: center; color: var(--color-slate-400); }
+    .media-content { padding: var(--space-4); }
+    .media-title { font-weight: 600; font-size: var(--font-size-base); margin-bottom: 4px; }
+    .media-desc { font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.5; }
+    .code-block { background: #1E293B; color: #E2E8F0; padding: var(--space-4); border-radius: var(--radius-md); font-family: monospace; font-size: 13px; overflow-x: auto; }
+    .quote-block { border-left: 4px solid var(--color-primary-600); padding-left: var(--space-4); margin: var(--space-4) 0; font-style: italic; color: var(--color-text-secondary); }
+
+    /* Audio Styles */
+    .audio-player { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-full); padding: 6px 16px; display: flex; align-items: center; gap: var(--space-3); width: 100%; max-width: 400px; }
+    .play-btn { width: 32px; height: 32px; background: var(--color-primary-600); color: white; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; transition: var(--transition-fast); }
+    .play-btn:hover { background: var(--color-primary-700); }
+    .waveform { flex: 1; height: 24px; display: flex; align-items: center; gap: 2px; }
+    .wave-bar { width: 2px; background: var(--color-slate-300); border-radius: 1px; }
+    .wave-bar.active { background: var(--color-primary-500); }
+
+    /* Editor Styles */
+    .editor-container { border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); overflow: hidden; }
+    .editor-toolbar { background: var(--color-bg-secondary); border-bottom: 1px solid var(--color-border-default); padding: var(--space-2); display: flex; gap: var(--space-1); }
+    .tool-btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); border: none; background: transparent; cursor: pointer; color: var(--color-text-secondary); }
+    .tool-btn:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+    .editor-content { padding: var(--space-3); min-height: 100px; outline: none; font-size: var(--font-size-base); line-height: 1.6; }
+    .editor-content:empty:before { content: attr(placeholder); color: var(--color-text-muted); }
+
+    /* Profile Styles */
+    .profile-card { border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: var(--space-4); background: var(--color-bg-primary); }
+    .avatar { width: 48px; height: 48px; border-radius: var(--radius-full); background: var(--color-primary-100); display: flex; align-items: center; justify-content: center; color: var(--color-primary-600); font-weight: 700; font-size: var(--font-size-lg); }
+    .profile-name { font-weight: 600; font-size: var(--font-size-md); margin-top: var(--space-3); }
+    .profile-role { font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: var(--space-4); }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<!-- BEGIN: Header -->
+<h1 class="page-title">FILE 14. Rich Components</h1>
+<p class="page-desc">Dock, Attachments, Media, Audio, Editor, Contact Profile</p>
+<hr class="divider"/>
+<!-- END: Header -->
+<!-- BEGIN: Floating Dock -->
+<h3 class="section-title">1. Floating Dock</h3>
+<div style="display: flex; flex-direction: column; gap: 24px;">
+<!-- Horizontal Bottom Variant -->
+<div class="flex items-center gap-4">
+<div class="dock">
+<a class="dock-item active" href="#">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+</a>
+<a class="dock-item" href="#">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="9" x2="9" y1="21" y2="9"></line></svg>
+</a>
+<a class="dock-item" href="#">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+</a>
+<a class="dock-item" href="#">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+</a>
+</div>
+<div class="dock-with-labels dock">
+<div class="dock-item active">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Chat
+          </div>
+<div class="dock-item">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            Users
+          </div>
+</div>
+</div>
+<!-- Vertical and Collapsible Variants -->
+<div style="display: flex; align-items: flex-start; gap: 40px;">
+<div class="dock vertical">
+<div class="dock-item active"><svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg></div>
+<div class="dock-item"><svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="20"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+<div class="dock-item"><svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="20"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7"></path><path d="M16 19h6"></path><path d="M19 16v6"></path></svg></div>
+</div>
+<div class="dock vertical" id="collapsible-dock" style="width: 48px; overflow: hidden; transition: width 0.3s ease;">
+<div class="dock-item" onclick="toggleDock(this.parentElement)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="20"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</div>
+<div class="dock-item"><svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<!-- END: Floating Dock -->
+<!-- BEGIN: Attachment Cards -->
+<h3 class="section-title">2. Attachment Cards</h3>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<!-- Single Card -->
+<div class="attachment-card" style="max-width: 320px;">
+<div class="file-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+</div>
+<div class="attachment-info">
+<div class="file-name">Project_Requirements.pdf</div>
+<div class="file-meta">2.4 MB • PDF Document</div>
+</div>
+<button class="tool-btn" style="color: var(--color-slate-400)">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+</button>
+</div>
+<!-- Grid Variant -->
+<div class="grid grid-cols-4 gap-4">
+<div class="attachment-card">
+<div class="file-icon" style="background: var(--color-error-bg); color: var(--color-error);"><svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+<div class="attachment-info"><div class="file-name">img_01.jpg</div><div class="file-meta">840 KB</div></div>
+</div>
+<div class="attachment-card">
+<div class="file-icon" style="background: var(--color-success-bg); color: var(--color-success);"><svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" x2="15" y1="15" y2="15"></line><line x1="9" x2="15" y1="11" y2="11"></line><line x1="9" x2="15" y1="19" y2="19"></line></svg></div>
+<div class="attachment-info"><div class="file-name">data.xlsx</div><div class="file-meta">1.2 MB</div></div>
+</div>
+<div class="attachment-card">
+<div class="file-icon"><svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
+<div class="attachment-info"><div class="file-name">notes.txt</div><div class="file-meta">12 KB</div></div>
+</div>
+<div class="attachment-card">
+<div class="file-icon" style="background: var(--color-primary-50); color: var(--color-primary-600);"><svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" x2="12" y1="22.08" y2="12"></line></svg></div>
+<div class="attachment-info"><div class="file-name">app.zip</div><div class="file-meta">45 MB</div></div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<!-- END: Attachment Cards -->
+<!-- BEGIN: Media Embeds -->
+<h3 class="section-title">3. Media Embeds</h3>
+<div class="grid grid-cols-4 gap-4" style="grid-template-columns: repeat(2, 1fr);">
+<div class="media-card">
+<div class="media-placeholder" style="background: var(--color-slate-50);">
+<svg fill="none" height="40" stroke="currentColor" stroke-width="1" style="opacity: 0.3;" viewbox="0 0 24 24" width="40"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+</div>
+<div class="media-content">
+<div class="media-title">San Francisco, CA</div>
+<div class="media-desc">View of the Golden Gate Bridge and surrounding park areas.</div>
+</div>
+</div>
+<div class="media-card">
+<div class="media-content">
+<div class="flex items-center gap-2" style="margin-bottom: 12px; color: var(--color-primary-600);">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+<span style="font-size: 12px; font-weight: 600;">github.com</span>
+</div>
+<div class="media-title">Lumos Design System</div>
+<div class="media-desc">Open-source React components built with precision and modern accessibility standards in mind.</div>
+</div>
+</div>
+</div>
+<div style="margin-top: 16px;">
+<div class="code-block">
+<span style="color: #93C5FD;">const</span> <span style="color: #FACC15;">greet</span> = () =&gt; {<br/>
+          console.<span style="color: #FACC15;">log</span>(<span style="color: #4ADE80;">"Welcome to Lumos V2.0"</span>);<br/>
+        };
+      </div>
+<div class="quote-block">
+        "Good design is obvious. Great design is transparent. We focus on building tools that empower users without getting in their way."
+      </div>
+</div>
+<div class="section-gap"></div>
+<!-- END: Media Embeds -->
+<!-- BEGIN: Audio Waveform -->
+<h3 class="section-title">4. Audio Waveform</h3>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<div class="audio-player">
+<button class="play-btn">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M5 3l14 9-14 9V3z"></path></svg>
+</button>
+<div class="waveform">
+<div class="wave-bar active" style="height: 12px;"></div>
+<div class="wave-bar active" style="height: 18px;"></div>
+<div class="wave-bar active" style="height: 14px;"></div>
+<div class="wave-bar" style="height: 20px;"></div>
+<div class="wave-bar" style="height: 16px;"></div>
+<div class="wave-bar" style="height: 24px;"></div>
+<div class="wave-bar" style="height: 12px;"></div>
+<div class="wave-bar" style="height: 18px;"></div>
+<div class="wave-bar" style="height: 14px;"></div>
+<div class="wave-bar" style="height: 10px;"></div>
+<div class="wave-bar" style="height: 16px;"></div>
+<div class="wave-bar" style="height: 8px;"></div>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: var(--color-slate-500);">02:45</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="audio-player" style="max-width: 200px; padding: 4px 12px; background: var(--color-primary-50); border-color: var(--color-primary-100);">
+<svg fill="none" height="14" stroke="var(--color-primary-600)" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+<div class="waveform" style="gap: 1px;">
+<div class="wave-bar active" style="height: 8px;"></div>
+<div class="wave-bar active" style="height: 12px;"></div>
+<div class="wave-bar" style="height: 10px;"></div>
+<div class="wave-bar" style="height: 6px;"></div>
+</div>
+</div>
+<span style="font-size: 12px; color: var(--color-text-muted);">Voice note • 12s</span>
+</div>
+</div>
+<div class="section-gap"></div>
+<!-- END: Audio Waveform -->
+<!-- BEGIN: Rich Editor -->
+<h3 class="section-title">5. Rich Editor</h3>
+<div class="editor-container" style="max-width: 600px;">
+<div class="editor-toolbar">
+<button class="tool-btn"><svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path></svg></button>
+<button class="tool-btn"><svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="19" x2="10" y1="4" y2="4"></line><line x1="14" x2="5" y1="20" y2="20"></line><line x1="15" x2="9" y1="4" y2="20"></line></svg></button>
+<div style="width: 1px; background: var(--color-border-default); margin: 4px 2px;"></div>
+<button class="tool-btn"><svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="8" x2="21" y1="6" y2="6"></line><line x1="8" x2="21" y1="12" y2="12"></line><line x1="8" x2="21" y1="18" y2="18"></line><line x1="3" x2="3.01" y1="6" y2="6"></line><line x1="3" x2="3.01" y1="12" y2="12"></line><line x1="3" x2="3.01" y1="18" y2="18"></line></svg></button>
+<button class="tool-btn"><svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></button>
+</div>
+<div class="editor-content" contenteditable="true" placeholder="Write your message...">Hey <span style="color: var(--color-primary-600); background: var(--color-primary-50); padding: 0 4px; border-radius: 4px; font-weight: 500;">@Sarah</span>, please check the attached design drafts.</div>
+<div style="padding: 8px 12px; border-top: 1px solid var(--color-border-default); display: flex; justify-content: flex-end; gap: 8px;">
+<button style="height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid var(--color-border-default); background: white; font-size: 13px; cursor: pointer;">Save Draft</button>
+<button style="height: 32px; padding: 0 12px; border-radius: 6px; border: none; background: var(--color-primary-600); color: white; font-size: 13px; font-weight: 500; cursor: pointer;">Send Reply</button>
+</div>
+</div>
+<div class="section-gap"></div>
+<!-- END: Rich Editor -->
+<!-- BEGIN: Contact Profile -->
+<h3 class="section-title">6. Contact Profile</h3>
+<div class="grid grid-cols-4 gap-4">
+<!-- Standard Profile Card -->
+<div class="profile-card">
+<div class="avatar">JD</div>
+<div class="profile-name">John Doe</div>
+<div class="profile-role">Product Designer</div>
+<div style="display: flex; gap: 8px;">
+<button class="tool-btn" style="width: 100%; height: 32px; border: 1px solid var(--color-border-default); background: var(--color-bg-secondary);">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+</button>
+<button class="tool-btn" style="width: 100%; height: 32px; border: 1px solid var(--color-border-default); background: var(--color-bg-secondary);">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</button>
+</div>
+</div>
+<!-- Detail Panel Variant (Simulated) -->
+<div class="profile-card" style="grid-column: span 2; display: flex; gap: 20px;">
+<div class="avatar" style="width: 64px; height: 64px; flex-shrink: 0;">SA</div>
+<div style="flex: 1;">
+<div style="font-weight: 700; font-size: 18px;">Sarah Anderson</div>
+<div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px;">Full-stack Developer</div>
+<div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+<div class="flex items-center gap-2">
+<svg fill="none" height="14" stroke="var(--color-text-muted)" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              London, United Kingdom
+            </div>
+<div class="flex items-center gap-2">
+<svg fill="none" height="14" stroke="var(--color-text-muted)" stroke-width="2" viewbox="0 0 24 24" width="14"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+              Joined March 2021
+            </div>
+</div>
+</div>
+</div>
+<!-- Compact Bar -->
+<div class="profile-card" style="padding: 12px; display: flex; align-items: center; gap: 12px;">
+<div class="avatar" style="width: 32px; height: 32px; font-size: 12px;">MK</div>
+<div style="min-width: 0;">
+<div style="font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Mike Ross</div>
+<div style="font-size: 11px; color: var(--color-text-muted);">Online</div>
+</div>
+</div>
+</div>
+<!-- END: Contact Profile -->
+</div>
+<script data-purpose="interaction-handlers">
+    function toggleActive(el) {
+      el.classList.toggle('active');
+    }
+
+    function toggleDock(el) {
+      if (el.style.width === '48px' || el.style.width === '') {
+        el.style.width = '180px';
+      } else {
+        el.style.width = '48px';
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+</body></html>

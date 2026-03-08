@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 10c. Table Cell Patterns</title>
+<style>
+    :root {
+      /* Primary Blue */
+      --color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;
+
+      /* Slate Gray */
+      --color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;
+
+      /* Text */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;
+
+      /* Semantic */
+      --color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;
+
+      /* Backgrounds */
+      --color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;
+
+      /* Borders */
+      --color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;
+
+      /* Spacing */
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+      /* Sizes */
+      --size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;
+
+      /* Font */
+      --font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+
+      /* Interaction */
+      --transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+
+    /* BEGIN: Table Styles */
+    .lumos-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--color-border-default);
+      font-size: var(--font-size-base);
+    }
+    .lumos-table th {
+      background: var(--color-bg-secondary);
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .lumos-table td {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--color-border-default);
+      vertical-align: middle;
+      background: var(--color-bg-primary);
+    }
+    /* END: Table Styles */
+
+    /* BEGIN: Cell Patterns */
+    /* Pattern 1: Meta Lines */
+    .cell-meta-primary { font-weight: 600; color: var(--color-text-primary); display: block; }
+    .cell-meta-secondary { font-size: var(--font-size-xs); color: var(--color-text-muted); display: block; margin-top: 2px; }
+
+    /* Pattern 2: Rich Notes */
+    .rich-note {
+      border-left: 3px solid var(--color-slate-300);
+      padding-left: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .rich-note.success { border-color: var(--color-success); }
+    .rich-note.warning { border-color: var(--color-warning); }
+    .rich-note-text { font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.4; }
+    .rich-note-status { font-size: var(--font-size-xs); color: var(--color-text-muted); font-style: italic; }
+
+    /* Pattern 3: Badge Group */
+    .badge-group { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      background: var(--color-slate-100);
+      color: var(--color-slate-600);
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    /* Pattern 4: Status Dot */
+    .status-dot-wrap { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-sm); font-weight: 500; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .status-dot.running { background: var(--color-primary-500); box-shadow: 0 0 0 3px var(--color-primary-100); }
+    .status-dot.pending { background: var(--color-warning); }
+    .status-dot.completed { background: var(--color-success); }
+    .status-dot.failed { background: var(--color-error); }
+
+    /* Pattern 5: Action Links */
+    .action-links { display: flex; gap: 12px; align-items: center; }
+    .action-link {
+      color: var(--color-text-link);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      transition: var(--transition-fast);
+      cursor: pointer;
+    }
+    .action-link:hover { color: var(--color-primary-800); text-decoration: underline; }
+    .action-link.delete { color: var(--color-error); }
+    .action-link.delete:hover { color: #B91C1C; }
+    .action-divider { color: var(--color-border-default); font-size: var(--font-size-xs); }
+
+    /* Pattern 6: Voided */
+    .cell-voided {
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+      font-style: italic;
+    }
+    /* END: Cell Patterns */
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 10c. Table Cell Patterns</h1>
+<p class="page-desc">6 reusable cell content patterns for professional data grids.</p>
+<hr class="divider"/>
+<!-- BEGIN: Meta Lines -->
+<h3 class="section-title">1. Meta Lines</h3>
+<table class="lumos-table" data-purpose="pattern-demo">
+<thead>
+<tr>
+<th>User Identification</th>
+<th>Account Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="cell-meta-primary">Alexander Hamilton</span>
+<span class="cell-meta-secondary">alex.h@treasury.gov</span>
+</td>
+<td>
+<span class="cell-meta-primary">Premium Tier</span>
+<span class="cell-meta-secondary">ID: 8849-XLG</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section-gap"></div>
+<!-- END: Meta Lines -->
+<!-- BEGIN: Rich Notes -->
+<h3 class="section-title">2. Rich Notes</h3>
+<table class="lumos-table">
+<thead>
+<tr>
+<th>Internal Commentary</th>
+<th>Flagged Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="rich-note success">
+<p class="rich-note-text">Client requested early access to API v3 features. Verification passed.</p>
+<span class="rich-note-status">Updated by Admin (2h ago)</span>
+</div>
+</td>
+<td>
+<div class="rich-note warning">
+<p class="rich-note-text">Multiple login attempts from unrecognized IP in Zurich.</p>
+<span class="rich-note-status">Under Review</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section-gap"></div>
+<!-- END: Rich Notes -->
+<!-- BEGIN: Badge Group -->
+<h3 class="section-title">3. Badge Group</h3>
+<table class="lumos-table">
+<thead>
+<tr>
+<th>Resource Tags</th>
+<th>Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="badge-group">
+<span class="badge">Production</span>
+<span class="badge">AWS-West</span>
+</div>
+</td>
+<td>
+<div class="badge-group">
+<span class="badge">Read-Only</span>
+<span class="badge">Analytics</span>
+<span class="badge">Billing</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section-gap"></div>
+<!-- END: Badge Group -->
+<!-- BEGIN: Status Dot -->
+<h3 class="section-title">4. Status Dot</h3>
+<table class="lumos-table">
+<thead>
+<tr>
+<th>Service</th>
+<th>Health</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database Cluster</td>
+<td>
+<div class="status-dot-wrap">
+<span class="status-dot running"></span>
+              Running
+            </div>
+</td>
+</tr>
+<tr>
+<td>Backup Script</td>
+<td>
+<div class="status-dot-wrap">
+<span class="status-dot pending"></span>
+              Pending
+            </div>
+</td>
+</tr>
+<tr>
+<td>CDN Propagation</td>
+<td>
+<div class="status-dot-wrap">
+<span class="status-dot completed"></span>
+              Completed
+            </div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section-gap"></div>
+<!-- END: Status Dot -->
+<!-- BEGIN: Action Links -->
+<h3 class="section-title">5. Action Links</h3>
+<table class="lumos-table">
+<thead>
+<tr>
+<th>Entity Name</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoice_2023_042.pdf</td>
+<td>
+<div class="action-links">
+<a class="action-link" href="#">View</a>
+<span class="action-divider">|</span>
+<a class="action-link" href="#">Edit</a>
+<span class="action-divider">|</span>
+<a class="action-link delete" href="#">Delete</a>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section-gap"></div>
+<!-- END: Action Links -->
+<!-- BEGIN: Voided -->
+<h3 class="section-title">6. Voided</h3>
+<table class="lumos-table">
+<thead>
+<tr>
+<th>Original Amount</th>
+<th>Void Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="cell-voided">$1,240.00</span>
+</td>
+<td>
+<span class="cell-meta-secondary">Transaction Cancelled by User</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="cell-voided">Old_V1_Schema.sql</span>
+</td>
+<td>
+<span class="cell-meta-secondary">Deprecated 2023-11-15</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<script data-purpose="event-handlers">
+    // Template placeholder for interactive elements if needed
+    function toggleActive(el) { 
+      el.classList.toggle('active'); 
+    }
+  </script>
+</body></html>

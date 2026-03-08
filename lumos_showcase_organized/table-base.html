@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 10a. Table Base</title>
+<style>
+    :root {
+      /* Primary Blue */
+      --color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;
+
+      /* Slate Gray */
+      --color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;
+
+      /* Text */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;
+
+      /* Semantic */
+      --color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;
+
+      /* Backgrounds */
+      --color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;
+
+      /* Borders */
+      --color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;
+
+      /* Spacing */
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+      /* Sizes */
+      --size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;
+
+      /* Font */
+      --font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+
+      /* Interaction */
+      --transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+
+    /* BEGIN: Table Styles */
+    .lumos-table-container { width: 100%; overflow-x: auto; }
+    .lumos-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: var(--font-size-base);
+    }
+    .lumos-table th {
+      padding: var(--space-3) var(--space-4);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .lumos-table td {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--color-border-default);
+      color: var(--color-text-primary);
+    }
+
+    /* Variant 1: Classic */
+    .variant-classic th { background: var(--color-bg-secondary); }
+
+    /* Variant 2: Striped */
+    .variant-striped tr:nth-child(even) td { background: var(--color-bg-secondary); }
+
+    /* Variant 3: Card */
+    .variant-card { border-collapse: separate; border-spacing: 0 var(--space-2); margin-top: calc(-1 * var(--space-2)); }
+    .variant-card th { padding-bottom: var(--space-2); }
+    .variant-card td { 
+      background: var(--color-bg-primary); 
+      border-bottom: none;
+      box-shadow: var(--shadow-sm);
+    }
+    .variant-card td:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); border-left: 1px solid var(--color-border-default); }
+    .variant-card td:last-child { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; border-right: 1px solid var(--color-border-default); }
+    .variant-card tr td { border-top: 1px solid var(--color-border-default); border-bottom: 1px solid var(--color-border-default); }
+
+    /* Variant 4: Compact */
+    .variant-compact { font-size: var(--font-size-xs); }
+    .variant-compact td, .variant-compact th { padding: var(--space-2) var(--space-4); height: 32px; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-progress { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .badge-success { background: var(--color-success-bg); color: var(--color-success); }
+    .badge-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+
+    /* Pagination */
+    .pagination-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-8);
+    }
+    .page-btn {
+      height: var(--size-control-sm);
+      min-width: var(--size-control-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 var(--space-2);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      background: var(--color-bg-primary);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      text-decoration: none;
+    }
+    .page-btn:hover { border-color: var(--color-border-strong); background: var(--color-bg-hover); }
+    .page-btn.active { background: var(--color-primary-600); color: var(--color-text-inverse); border-color: var(--color-primary-600); }
+    .page-ellipsis { color: var(--color-text-muted); padding: 0 var(--space-1); }
+    /* END: Table Styles */
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 10a. Table Base</h1>
+<p class="page-desc">4 base table forms</p>
+<hr class="divider"/>
+<!-- BEGIN: Variant 1 Classic -->
+<h3 class="section-title">1. Classic</h3>
+<div class="lumos-table-container">
+<table class="lumos-table variant-classic">
+<thead>
+<tr>
+<th>Project</th>
+<th>Owner</th>
+<th>Status</th>
+<th>Due Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Alpha</td>
+<td>John Smith</td>
+<td><span class="badge badge-progress">In Progress</span></td>
+<td>2025-01-15</td>
+</tr>
+<tr>
+<td>Beta Launch</td>
+<td>Emily Chen</td>
+<td><span class="badge badge-success">Completed</span></td>
+<td>2025-02-01</td>
+</tr>
+<tr>
+<td>Internal Audit</td>
+<td>Mike Ross</td>
+<td><span class="badge badge-warning">Pending</span></td>
+<td>2025-02-10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section-gap"></div>
+<!-- END: Variant 1 Classic -->
+<!-- BEGIN: Variant 2 Striped -->
+<h3 class="section-title">2. Striped</h3>
+<div class="lumos-table-container">
+<table class="lumos-table variant-striped">
+<thead>
+<tr>
+<th>Project</th>
+<th>Owner</th>
+<th>Status</th>
+<th>Due Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Alpha</td>
+<td>John Smith</td>
+<td><span class="badge badge-progress">In Progress</span></td>
+<td>2025-01-15</td>
+</tr>
+<tr>
+<td>Beta Launch</td>
+<td>Emily Chen</td>
+<td><span class="badge badge-success">Completed</span></td>
+<td>2025-02-01</td>
+</tr>
+<tr>
+<td>Internal Audit</td>
+<td>Mike Ross</td>
+<td><span class="badge badge-warning">Pending</span></td>
+<td>2025-02-10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section-gap"></div>
+<!-- END: Variant 2 Striped -->
+<!-- BEGIN: Variant 3 Card -->
+<h3 class="section-title">3. Card</h3>
+<div class="lumos-table-container">
+<table class="lumos-table variant-card">
+<thead>
+<tr>
+<th>Project</th>
+<th>Owner</th>
+<th>Status</th>
+<th>Due Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Alpha</td>
+<td>John Smith</td>
+<td><span class="badge badge-progress">In Progress</span></td>
+<td>2025-01-15</td>
+</tr>
+<tr>
+<td>Beta Launch</td>
+<td>Emily Chen</td>
+<td><span class="badge badge-success">Completed</span></td>
+<td>2025-02-01</td>
+</tr>
+<tr>
+<td>Internal Audit</td>
+<td>Mike Ross</td>
+<td><span class="badge badge-warning">Pending</span></td>
+<td>2025-02-10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section-gap"></div>
+<!-- END: Variant 3 Card -->
+<!-- BEGIN: Variant 4 Compact -->
+<h3 class="section-title">4. Compact</h3>
+<div class="lumos-table-container">
+<table class="lumos-table variant-compact">
+<thead>
+<tr>
+<th>Project</th>
+<th>Owner</th>
+<th>Status</th>
+<th>Due Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Alpha</td>
+<td>John Smith</td>
+<td><span class="badge badge-progress">In Progress</span></td>
+<td>2025-01-15</td>
+</tr>
+<tr>
+<td>Beta Launch</td>
+<td>Emily Chen</td>
+<td><span class="badge badge-success">Completed</span></td>
+<td>2025-02-01</td>
+</tr>
+<tr>
+<td>Internal Audit</td>
+<td>Mike Ross</td>
+<td><span class="badge badge-warning">Pending</span></td>
+<td>2025-02-10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- END: Variant 4 Compact -->
+<!-- BEGIN: Pagination -->
+<div class="pagination-container" data-purpose="table-pagination">
+<button class="page-btn">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+<button class="page-btn active">1</button>
+<button class="page-btn">2</button>
+<button class="page-btn">3</button>
+<span class="page-ellipsis">...</span>
+<button class="page-btn">10</button>
+<button class="page-btn">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+<!-- END: Pagination -->
+</div>
+<script data-purpose="event-handlers">
+    function toggleActive(el) { el.classList.toggle('active'); }
+    
+    // Pagination active state handling
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      if(!btn.querySelector('svg')) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+</body></html>

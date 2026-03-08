@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 10e. Table Showcase</title>
+<style data-purpose="mandatory-tokens">
+    :root {
+      /* Primary Blue */
+      --color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;
+
+      /* Slate Gray */
+      --color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;
+
+      /* Text */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;
+
+      /* Semantic */
+      --color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;
+
+      /* Backgrounds */
+      --color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;
+
+      /* Borders */
+      --color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;
+
+      /* Spacing */
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+      /* Sizes */
+      --size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;
+
+      /* Font */
+      --font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+
+      /* Interaction */
+      --transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+  </style>
+<style data-purpose="global-reset">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-secondary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 1080px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 64px; }
+  </style>
+<style data-purpose="components-layout">
+    /* Toolbar & Tabs */
+    .table-container { 
+      background: var(--color-bg-primary); 
+      border: 1px solid var(--color-border-default); 
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .table-header-area { padding: var(--space-4) var(--space-4) 0 var(--space-4); }
+    
+    .tabs { display: flex; border-bottom: 1px solid var(--color-border-default); gap: var(--space-6); margin-bottom: var(--space-4); }
+    .tab-item { 
+      padding: var(--space-2) 0 var(--space-3); 
+      font-size: var(--font-size-sm); 
+      font-weight: 500; 
+      color: var(--color-text-secondary); 
+      cursor: pointer; 
+      border-bottom: 2px solid transparent;
+      transition: var(--transition-fast);
+    }
+    .tab-item:hover { color: var(--color-primary-600); }
+    .tab-item.active { color: var(--color-primary-600); border-bottom-color: var(--color-primary-600); }
+
+    .toolbar { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-4); gap: var(--space-4); }
+    .toolbar-left { display: flex; gap: var(--space-3); flex-grow: 1; }
+    .toolbar-right { display: flex; gap: var(--space-2); }
+
+    /* Inputs */
+    .search-input-wrap { position: relative; width: 280px; }
+    .search-input { 
+      width: 100%; 
+      height: var(--size-control-md); 
+      padding-left: 36px; 
+      border: 1px solid var(--color-border-default); 
+      border-radius: var(--radius-md); 
+      font-size: var(--font-size-sm);
+      transition: var(--transition-fast);
+    }
+    .search-input:focus { outline: none; border-color: var(--color-border-focus); box-shadow: var(--focus-ring); }
+    .search-icon { position: absolute; left: 10px; top: 8px; color: var(--color-text-muted); }
+
+    .btn-action { 
+      height: var(--size-control-md); 
+      padding: 0 var(--space-3); 
+      display: flex; 
+      align-items: center; 
+      gap: var(--space-2); 
+      background: var(--color-bg-primary); 
+      border: 1px solid var(--color-border-default); 
+      border-radius: var(--radius-md); 
+      font-size: var(--font-size-sm); 
+      font-weight: 500; 
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .btn-action:hover { background: var(--color-bg-secondary); border-color: var(--color-border-strong); }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; }
+    th { 
+      background: var(--color-bg-secondary); 
+      text-align: left; 
+      padding: var(--space-3) var(--space-4); 
+      font-size: var(--font-size-xs); 
+      font-weight: 600; 
+      color: var(--color-text-secondary); 
+      text-transform: uppercase; 
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    td { padding: var(--space-4); border-bottom: 1px solid var(--color-border-default); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: var(--color-bg-secondary); }
+
+    /* Checkbox Custom */
+    .custom-checkbox { width: 18px; height: 18px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .custom-checkbox.active { background: var(--color-primary-600); border-color: var(--color-primary-600); }
+    .custom-checkbox svg { color: white; display: none; }
+    .custom-checkbox.active svg { display: block; }
+
+    /* Cell Styles */
+    .cell-meta { font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 2px; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+    .badge { 
+      display: inline-flex; 
+      align-items: center; 
+      padding: 2px 8px; 
+      border-radius: var(--radius-full); 
+      font-size: var(--font-size-xs); 
+      font-weight: 500; 
+    }
+    .badge-success { background: var(--color-success-bg); color: var(--color-success); }
+    .badge-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+
+    /* Pagination */
+    .pagination { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      padding: var(--space-4); 
+      background: var(--color-bg-primary); 
+      border-top: 1px solid var(--color-border-default);
+    }
+    .pagination-info { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+    .pagination-controls { display: flex; gap: var(--space-2); }
+    .btn-page { 
+      width: 32px; 
+      height: 32px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border: 1px solid var(--color-border-default); 
+      border-radius: var(--radius-md); 
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      background: white;
+    }
+    .btn-page:hover:not(.disabled) { border-color: var(--color-primary-600); color: var(--color-primary-600); }
+    .btn-page.active { background: var(--color-primary-600); border-color: var(--color-primary-600); color: white; }
+
+    /* Card Grid */
+    .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); padding: var(--space-4); background: var(--color-bg-secondary); }
+    .data-card { 
+      background: var(--color-bg-primary); 
+      border: 1px solid var(--color-border-default); 
+      border-radius: var(--radius-lg); 
+      padding: var(--space-4); 
+      transition: var(--transition-fast);
+    }
+    .data-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .card-header { display: flex; justify-content: space-between; margin-bottom: var(--space-3); }
+    .card-body h4 { font-size: var(--font-size-base); font-weight: 600; margin-bottom: var(--space-1); }
+    .card-footer { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--color-border-default); display: flex; justify-content: space-between; align-items: center; }
+
+    /* View Toggle */
+    .view-toggle { display: flex; background: var(--color-bg-tertiary); border-radius: var(--radius-md); padding: 2px; }
+    .btn-toggle { 
+      width: 32px; 
+      height: 32px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border-radius: var(--radius-sm); 
+      border: none; 
+      background: transparent; 
+      color: var(--color-text-muted); 
+      cursor: pointer; 
+      transition: var(--transition-fast);
+    }
+    .btn-toggle.active { background: var(--color-bg-primary); color: var(--color-primary-600); box-shadow: var(--shadow-sm); }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<!-- BEGIN: Header -->
+<h1 class="page-title">FILE 10e. Table Showcase</h1>
+<p class="page-desc">3 complete table combinations demonstrating layouts and view switches.</p>
+<hr class="divider"/>
+<!-- END: Header -->
+<!-- BEGIN: Section 1 - Classic Full -->
+<h3 class="section-title">1. Classic Full</h3>
+<div class="table-container">
+<div class="table-header-area">
+<div class="tabs">
+<div class="tab-item active">All Projects</div>
+<div class="tab-item">Active</div>
+<div class="tab-item">Pending</div>
+<div class="tab-item">Archived</div>
+</div>
+<div class="toolbar">
+<div class="toolbar-left">
+<div class="search-input-wrap">
+<span class="search-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+</span>
+<input class="search-input" placeholder="Search project name..." type="text"/>
+</div>
+<button class="btn-action">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+              Filter
+            </button>
+<button class="btn-action">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M11 5L6 9H2V15H6L11 19V5Z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              Sort
+            </button>
+</div>
+<div class="toolbar-right">
+<button class="btn-action" style="color: var(--color-error)">Reset</button>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th style="width: 48px">
+<div class="custom-checkbox" onclick="toggleActive(this)">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+</th>
+<th>Project Name</th>
+<th>Status</th>
+<th>Owner</th>
+<th>Created Date</th>
+<th style="text-align: right">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="custom-checkbox" onclick="toggleActive(this)">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+</td>
+<td>
+<div style="font-weight: 500;">LUMOS Redesign Phase 1</div>
+<div class="cell-meta">Internal Tools</div>
+</td>
+<td>
+<span class="badge badge-success">
+<span class="status-dot" style="background: var(--color-success)"></span>
+                Active
+              </span>
+</td>
+<td>
+<div style="display: flex; align-items: center; gap: 8px;">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-slate-200); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">JD</div>
+<span>Jane Doe</span>
+</div>
+</td>
+<td>Oct 24, 2023</td>
+<td style="text-align: right">
+<button class="btn-action" style="padding: 0 8px; border: none;">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+</button>
+</td>
+</tr>
+<tr>
+<td><div class="custom-checkbox" onclick="toggleActive(this)"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg></div></td>
+<td>
+<div style="font-weight: 500;">API Gateway Documentation</div>
+<div class="cell-meta">DevX Experience</div>
+</td>
+<td>
+<span class="badge badge-warning">
+<span class="status-dot" style="background: var(--color-warning)"></span>
+                Pending
+              </span>
+</td>
+<td>
+<div style="display: flex; align-items: center; gap: 8px;">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-slate-200); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">AS</div>
+<span>Alex Smith</span>
+</div>
+</td>
+<td>Oct 21, 2023</td>
+<td style="text-align: right">
+<button class="btn-action" style="padding: 0 8px; border: none;"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+</td>
+</tr>
+<tr>
+<td><div class="custom-checkbox" onclick="toggleActive(this)"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg></div></td>
+<td>
+<div style="font-weight: 500;">Mobile App Refactor</div>
+<div class="cell-meta">Mobile Team</div>
+</td>
+<td>
+<span class="badge badge-success">
+<span class="status-dot" style="background: var(--color-success)"></span>
+                Active
+              </span>
+</td>
+<td>
+<div style="display: flex; align-items: center; gap: 8px;">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-slate-200); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;">RK</div>
+<span>Ryan Kim</span>
+</div>
+</td>
+<td>Oct 19, 2023</td>
+<td style="text-align: right">
+<button class="btn-action" style="padding: 0 8px; border: none;"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="pagination">
+<div class="pagination-info">Showing 1 to 3 of 42 results</div>
+<div class="pagination-controls">
+<button class="btn-page"><svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button class="btn-page active">1</button>
+<button class="btn-page">2</button>
+<button class="btn-page">3</button>
+<button class="btn-page"><svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+</div>
+<!-- END: Section 1 -->
+<div class="section-gap"></div>
+<!-- BEGIN: Section 2 - Card Grid Full -->
+<h3 class="section-title">2. Card Grid Full</h3>
+<div class="table-container" style="background: var(--color-bg-secondary);">
+<div class="table-header-area" style="background: white;">
+<div class="tabs">
+<div class="tab-item active">All Projects</div>
+<div class="tab-item">Active</div>
+<div class="tab-item">Pending</div>
+</div>
+<div class="toolbar">
+<div class="toolbar-left">
+<div class="search-input-wrap">
+<span class="search-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg></span>
+<input class="search-input" placeholder="Search grid..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+<div class="card-grid">
+<!-- Card 1 -->
+<div class="data-card">
+<div class="card-header">
+<span class="badge badge-success">Active</span>
+<button style="background:none; border:none; color: var(--color-text-muted); cursor:pointer;"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+</div>
+<div class="card-body">
+<h4>LUMOS Redesign</h4>
+<div class="cell-meta">Internal Tools</div>
+<div class="cell-meta" style="margin-top: 12px;">Owner: Jane Doe</div>
+</div>
+<div class="card-footer">
+<span class="cell-meta">Created Oct 24</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: var(--color-primary-600)" viewbox="0 0 24 24" width="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="data-card">
+<div class="card-header">
+<span class="badge badge-warning">Pending</span>
+<button style="background:none; border:none; color: var(--color-text-muted); cursor:pointer;"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+</div>
+<div class="card-body">
+<h4>API Gateway</h4>
+<div class="cell-meta">DevX Experience</div>
+<div class="cell-meta" style="margin-top: 12px;">Owner: Alex Smith</div>
+</div>
+<div class="card-footer">
+<span class="cell-meta">Created Oct 21</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: var(--color-primary-600)" viewbox="0 0 24 24" width="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="data-card">
+<div class="card-header">
+<span class="badge badge-success">Active</span>
+<button style="background:none; border:none; color: var(--color-text-muted); cursor:pointer;"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+</div>
+<div class="card-body">
+<h4>Mobile App</h4>
+<div class="cell-meta">Mobile Team</div>
+<div class="cell-meta" style="margin-top: 12px;">Owner: Ryan Kim</div>
+</div>
+<div class="card-footer">
+<span class="cell-meta">Created Oct 19</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: var(--color-primary-600)" viewbox="0 0 24 24" width="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="data-card">
+<div class="card-header">
+<span class="badge badge-success">Active</span>
+<button style="background:none; border:none; color: var(--color-text-muted); cursor:pointer;"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+</div>
+<div class="card-body">
+<h4>Legacy Migration</h4>
+<div class="cell-meta">Core Infra</div>
+<div class="cell-meta" style="margin-top: 12px;">Owner: Sarah Lee</div>
+</div>
+<div class="card-footer">
+<span class="cell-meta">Created Oct 15</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: var(--color-primary-600)" viewbox="0 0 24 24" width="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>
+</div>
+</div>
+</div>
+<div class="pagination" style="background: white;">
+<div class="pagination-info">Showing 4 results</div>
+<div class="pagination-controls">
+<button class="btn-page active">1</button>
+</div>
+</div>
+</div>
+<!-- END: Section 2 -->
+<div class="section-gap"></div>
+<!-- BEGIN: Section 3 - Toggle View -->
+<div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px;">
+<h3 class="section-title" style="margin-bottom: 0;">3. Toggle View</h3>
+<div class="view-toggle">
+<button class="btn-toggle active" id="btn-list-view">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="8" x2="21" y1="6" y2="6"></line><line x1="8" x2="21" y1="12" y2="12"></line><line x1="8" x2="21" y1="18" y2="18"></line><line x1="3" x2="3.01" y1="6" y2="6"></line><line x1="3" x2="3.01" y1="12" y2="12"></line><line x1="3" x2="3.01" y1="18" y2="18"></line></svg>
+</button>
+<button class="btn-toggle" id="btn-grid-view">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+</button>
+</div>
+</div>
+<div class="table-container">
+<!-- List View -->
+<table id="list-view-content">
+<thead>
+<tr>
+<th>Module</th>
+<th>Last Updated</th>
+<th style="text-align: right">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="font-weight: 500;">Authentication Engine</td>
+<td>2 hours ago</td>
+<td style="text-align: right"><span class="badge badge-success">Live</span></td>
+</tr>
+<tr>
+<td style="font-weight: 500;">Billing Pipeline</td>
+<td>Yesterday</td>
+<td style="text-align: right"><span class="badge badge-warning">Testing</span></td>
+</tr>
+<tr>
+<td style="font-weight: 500;">Data Analytics</td>
+<td>Oct 12, 2023</td>
+<td style="text-align: right"><span class="badge badge-success">Live</span></td>
+</tr>
+</tbody>
+</table>
+<!-- Grid View (Hidden by default) -->
+<div class="card-grid hidden" id="grid-view-content" style="grid-template-columns: repeat(3, 1fr);">
+<div class="data-card">
+<h4>Authentication Engine</h4>
+<div class="cell-meta">Status: Live</div>
+<div class="cell-meta">Updated: 2h ago</div>
+</div>
+<div class="data-card">
+<h4>Billing Pipeline</h4>
+<div class="cell-meta">Status: Testing</div>
+<div class="cell-meta">Updated: Yesterday</div>
+</div>
+<div class="data-card">
+<h4>Data Analytics</h4>
+<div class="cell-meta">Status: Live</div>
+<div class="cell-meta">Updated: Oct 12</div>
+</div>
+</div>
+</div>
+<!-- END: Section 3 -->
+</div>
+<script data-purpose="interaction-logic">
+    function toggleActive(el) { 
+      el.classList.toggle('active'); 
+    }
+
+    // View Toggle Logic for Section 3
+    const btnList = document.getElementById('btn-list-view');
+    const btnGrid = document.getElementById('btn-grid-view');
+    const listView = document.getElementById('list-view-content');
+    const gridView = document.getElementById('grid-view-content');
+
+    btnList.addEventListener('click', function() {
+      btnList.classList.add('active');
+      btnGrid.classList.remove('active');
+      listView.classList.remove('hidden');
+      gridView.classList.add('hidden');
+    });
+
+    btnGrid.addEventListener('click', function() {
+      btnGrid.classList.add('active');
+      btnList.classList.remove('active');
+      gridView.classList.remove('hidden');
+      listView.classList.add('hidden');
+    });
+
+    // Handle generic dropdown clicks (none in this specific layout but required by constraints)
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+</body></html>

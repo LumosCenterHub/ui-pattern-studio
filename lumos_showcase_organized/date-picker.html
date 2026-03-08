@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 9. Date Picker</title>
+<style data-purpose="mandatory-tokens">
+    :root {
+      /* Primary Blue */
+      --color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;
+
+      /* Slate Gray */
+      --color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;
+
+      /* Text */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;
+
+      /* Semantic */
+      --color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;
+
+      /* Backgrounds */
+      --color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;
+
+      /* Borders */
+      --color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;
+
+      /* Spacing */
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+      /* Sizes */
+      --size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;
+
+      /* Font */
+      --font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+
+      /* Interaction */
+      --transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+  </style>
+<style data-purpose="component-styles">
+    /* Calendar Container */
+    .datepicker-card {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      display: inline-flex;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Header */
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-border-default);
+    }
+    .month-year-label {
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .nav-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      transition: var(--transition-fast);
+      border: 1px solid transparent;
+    }
+    .nav-btn:hover {
+      background: var(--color-bg-hover);
+      color: var(--color-primary-600);
+    }
+
+    /* Grid Layout */
+    .calendar-body { padding: var(--space-3); }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 36px);
+      gap: 2px;
+    }
+    .weekday {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+    }
+    .day {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: var(--transition-fast);
+      position: relative;
+    }
+    .day:hover:not(.empty):not(.disabled) {
+      background: var(--color-bg-hover);
+      color: var(--color-primary-600);
+    }
+    .day.selected {
+      background: var(--color-primary-600) !important;
+      color: var(--color-text-inverse) !important;
+    }
+    .day.in-range {
+      background: var(--color-primary-50);
+      border-radius: 0;
+    }
+    .day.range-start {
+      background: var(--color-primary-600);
+      color: var(--color-text-inverse);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .day.range-end {
+      background: var(--color-primary-600);
+      color: var(--color-text-inverse);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .day.muted { color: var(--color-text-muted); }
+
+    /* Sidebar */
+    .calendar-sidebar {
+      width: 140px;
+      border-right: 1px solid var(--color-border-default);
+      background: var(--color-bg-secondary);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-2);
+    }
+    .sidebar-item {
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: var(--transition-fast);
+    }
+    .sidebar-item:hover {
+      background: var(--color-bg-active);
+      color: var(--color-primary-600);
+    }
+    .sidebar-item.active {
+      background: var(--color-primary-600);
+      color: var(--color-text-inverse);
+    }
+
+    /* Month/Year Grid */
+    .month-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      gap: var(--space-2);
+      padding: var(--space-4);
+    }
+    .month-cell {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: var(--transition-fast);
+    }
+    .month-cell:hover { background: var(--color-bg-hover); color: var(--color-primary-600); }
+    .month-cell.active { background: var(--color-primary-600); color: var(--color-text-inverse); }
+
+    /* Time Picker */
+    .time-column {
+      width: 100px;
+      border-left: 1px solid var(--color-border-default);
+      height: 310px;
+      overflow-y: auto;
+      padding: var(--space-2);
+    }
+    .time-slot {
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      text-align: center;
+      margin-bottom: 2px;
+    }
+    .time-slot:hover { background: var(--color-bg-hover); }
+    .time-slot.active { background: var(--color-primary-50); color: var(--color-primary-600); font-weight: 600; }
+
+    /* Week Highlight */
+    .week-row:hover .day:not(.empty) {
+      background: var(--color-primary-50);
+      color: var(--color-primary-600);
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 9. Date Picker</h1>
+<p class="page-desc">6 professional date picker variants for SaaS administrative tools.</p>
+<hr class="divider"/>
+<!-- BEGIN: Variant 1 Single Date -->
+<h3 class="section-title">1. Single Date</h3>
+<div class="datepicker-card" data-purpose="single-date-picker">
+<div class="calendar-panel">
+<div class="calendar-header">
+<div class="nav-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</div>
+<div class="month-year-label">January 2025</div>
+<div class="nav-btn">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<div class="calendar-body">
+<div class="calendar-grid">
+<div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div><div class="weekday">Sun</div>
+<!-- Empty days -->
+<div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+<div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+<div class="day">13</div><div class="day">14</div><div class="day selected" onclick="toggleActive(this)">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+<div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+<div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div><div class="day muted">1</div><div class="day muted">2</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Variant 1 Single Date -->
+<div class="section-gap"></div>
+<!-- BEGIN: Variant 2 Date Range -->
+<h3 class="section-title">2. Date Range</h3>
+<div class="datepicker-card" data-purpose="date-range-picker">
+<!-- Panel Left -->
+<div class="calendar-panel" style="border-right: 1px solid var(--color-border-default);">
+<div class="calendar-header">
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="month-year-label">January 2025</div>
+<div style="width: 28px;"></div>
+</div>
+<div class="calendar-body">
+<div class="calendar-grid">
+<div class="weekday">Mo</div><div class="weekday">Tu</div><div class="weekday">We</div><div class="weekday">Th</div><div class="weekday">Fr</div><div class="weekday">Sa</div><div class="weekday">Su</div>
+<div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+<div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+<div class="day">13</div><div class="day">14</div><div class="day range-start">15</div><div class="day in-range">16</div><div class="day in-range">17</div><div class="day in-range">18</div><div class="day in-range">19</div>
+<div class="day in-range">20</div><div class="day in-range">21</div><div class="day range-end">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+<div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div><div class="day empty"></div><div class="day empty"></div>
+</div>
+</div>
+</div>
+<!-- Panel Right -->
+<div class="calendar-panel">
+<div class="calendar-header">
+<div style="width: 28px;"></div>
+<div class="month-year-label">February 2025</div>
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+</div>
+<div class="calendar-body">
+<div class="calendar-grid">
+<div class="weekday">Mo</div><div class="weekday">Tu</div><div class="weekday">We</div><div class="weekday">Th</div><div class="weekday">Fr</div><div class="weekday">Sa</div><div class="weekday">Su</div>
+<div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div>
+<div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div>
+<div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div>
+<div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div>
+<div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day empty"></div><div class="day empty"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Variant 2 Date Range -->
+<div class="section-gap"></div>
+<!-- BEGIN: Variant 3 Quick Range -->
+<h3 class="section-title">3. Quick Range</h3>
+<div class="datepicker-card" data-purpose="quick-range-picker">
+<div class="calendar-sidebar">
+<div class="sidebar-item">Today</div>
+<div class="sidebar-item active">7 Days</div>
+<div class="sidebar-item">This Month</div>
+<div class="sidebar-item">Last Month</div>
+<div class="sidebar-item">Quarter</div>
+</div>
+<div class="calendar-panel">
+<div class="calendar-header">
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="month-year-label">January 2025</div>
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+</div>
+<div class="calendar-body">
+<div class="calendar-grid">
+<div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div><div class="weekday">Sun</div>
+<div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+<div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+<div class="day">13</div><div class="day">14</div><div class="day range-start">15</div><div class="day in-range">16</div><div class="day in-range">17</div><div class="day in-range">18</div><div class="day in-range">19</div>
+<div class="day in-range">20</div><div class="day in-range">21</div><div class="day range-end">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Variant 3 Quick Range -->
+<div class="section-gap"></div>
+<!-- BEGIN: Variant 4 Year-Month -->
+<h3 class="section-title">4. Year-Month</h3>
+<div class="datepicker-card" data-purpose="year-month-picker">
+<div class="calendar-panel">
+<div class="calendar-header">
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="month-year-label">2025</div>
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+</div>
+<div class="month-grid">
+<div class="month-cell active">Jan</div><div class="month-cell">Feb</div><div class="month-cell">Mar</div>
+<div class="month-cell">Apr</div><div class="month-cell">May</div><div class="month-cell">Jun</div>
+<div class="month-cell">Jul</div><div class="month-cell">Aug</div><div class="month-cell">Sep</div>
+<div class="month-cell">Oct</div><div class="month-cell">Nov</div><div class="month-cell">Dec</div>
+</div>
+</div>
+</div>
+<!-- END: Variant 4 Year-Month -->
+<div class="section-gap"></div>
+<!-- BEGIN: Variant 5 DateTime -->
+<h3 class="section-title">5. DateTime</h3>
+<div class="datepicker-card" data-purpose="date-time-picker">
+<div class="calendar-panel">
+<div class="calendar-header">
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="month-year-label">January 2025</div>
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+</div>
+<div class="calendar-body">
+<div class="calendar-grid">
+<div class="weekday">Mo</div><div class="weekday">Tu</div><div class="weekday">We</div><div class="weekday">Th</div><div class="weekday">Fr</div><div class="weekday">Sa</div><div class="weekday">Su</div>
+<div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+<div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+<div class="day">13</div><div class="day">14</div><div class="day selected">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+<div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+</div>
+</div>
+</div>
+<div class="time-column">
+<div class="time-slot">09:00</div>
+<div class="time-slot">10:00</div>
+<div class="time-slot">11:00</div>
+<div class="time-slot">12:00</div>
+<div class="time-slot">13:00</div>
+<div class="time-slot">14:00</div>
+<div class="time-slot active">14:30</div>
+<div class="time-slot">15:00</div>
+<div class="time-slot">16:00</div>
+<div class="time-slot">17:00</div>
+<div class="time-slot">18:00</div>
+</div>
+</div>
+<!-- END: Variant 5 DateTime -->
+<div class="section-gap"></div>
+<!-- BEGIN: Variant 6 Week Selection -->
+<h3 class="section-title">6. Week</h3>
+<div class="datepicker-card" data-purpose="week-picker">
+<div class="calendar-panel">
+<div class="calendar-header">
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+<div class="month-year-label">January 2025</div>
+<div class="nav-btn"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+</div>
+<div class="calendar-body">
+<div class="calendar-grid">
+<div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div><div class="weekday">Sun</div>
+<div class="week-row" style="display: contents;">
+<div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+</div>
+<div class="week-row" style="display: contents;">
+<div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+</div>
+<!-- This row is currently highlighted to demonstrate week selection -->
+<div class="week-row" style="display: contents;">
+<div class="day in-range">13</div><div class="day in-range">14</div><div class="day in-range selected">15</div><div class="day in-range">16</div><div class="day in-range">17</div><div class="day in-range">18</div><div class="day in-range">19</div>
+</div>
+<div class="week-row" style="display: contents;">
+<div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+</div>
+<div class="week-row" style="display: contents;">
+<div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div><div class="day empty"></div><div class="day empty"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Variant 6 Week Selection -->
+</div>
+<script data-purpose="interaction-logic">
+    /**
+     * Toggles the 'active' class on an element. 
+     * In this context, it's used for simulated selection of days/slots.
+     */
+    function toggleActive(el) {
+      el.classList.toggle('selected');
+    }
+
+    /**
+     * Standard click-outside logic for dropdowns or modals
+     * and specific datepicker behavior.
+     */
+    document.addEventListener('click', function(e) {
+      // Logic for day selection inside components
+      if (e.target.classList.contains('day') && !e.target.classList.contains('empty') && !e.target.classList.contains('muted')) {
+        // Find sibling elements in the same grid and remove their selected status if this is a single picker
+        const parent = e.target.closest('.calendar-grid');
+        if (parent && !e.target.closest('[data-purpose="date-range-picker"]')) {
+           parent.querySelectorAll('.day.selected').forEach(d => d.classList.remove('selected'));
+           e.target.classList.add('selected');
+        }
+      }
+
+      // Logic for sidebar item selection
+      if (e.target.classList.contains('sidebar-item')) {
+        const parent = e.target.closest('.calendar-sidebar');
+        parent.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+
+      // Logic for month selection
+      if (e.target.classList.contains('month-cell')) {
+        const parent = e.target.closest('.month-grid');
+        parent.querySelectorAll('.month-cell').forEach(m => m.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+
+      // Logic for time slot selection
+      if (e.target.classList.contains('time-slot')) {
+        const parent = e.target.closest('.time-column');
+        parent.querySelectorAll('.time-slot').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+
+      // Dropdown active state clearing
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+</body></html>

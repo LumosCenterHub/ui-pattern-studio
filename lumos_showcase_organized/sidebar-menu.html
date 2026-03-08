@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 11. Sidebar Menu</title>
+<style data-purpose="root-tokens">
+    :root {--color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;--color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;--color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;--color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;--color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;--color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 120px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);--shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.03);--radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;--space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;--size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;--font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;--transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+    @layer base {
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: var(--color-bg-secondary);
+        font-family: var(--font-family);
+        color: var(--color-text-primary);
+        -webkit-font-smoothing: antialiased;
+        padding: 40px;
+      }
+    }
+    .variants-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .sidebar-container {
+      width: var(--size-sidebar-width);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 480px;
+      position: relative;
+      box-shadow: var(--shadow-subtle);
+    }
+    .sb-section-separator {
+      height: 1px;
+      background-color: var(--color-border-default);
+      margin: var(--space-4) var(--space-4);
+      display: block;
+    }
+    .sb-item {
+      display: flex;
+      align-items: center;
+      padding: 10px var(--space-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-base);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition-fast);
+      position: relative;
+      user-select: none;
+    }
+    .sb-item:hover {
+      background-color: var(--color-bg-hover);
+      color: var(--color-text-primary);
+    }
+    .sb-item.active {
+      background-color: var(--color-bg-active);
+      color: var(--color-primary-600);
+      font-weight: 500;
+    }
+    .sb-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--color-primary-600);
+    }
+    .sb-icon {
+      margin-right: var(--space-3);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sb-label { flex: 1; }
+    .sb-submenu {
+      display: none;
+      background: var(--color-bg-secondary);
+    }
+    .sb-item.open + .sb-submenu {
+      display: block;
+    }
+    .sb-submenu .sb-item {
+      padding-left: calc(var(--space-4) + 28px);
+      font-size: var(--font-size-sm);
+    }
+    .sb-chevron {
+      margin-left: auto;
+      transition: transform 0.2s ease;
+    }
+    .sb-item.open .sb-chevron {
+      transform: rotate(90deg);
+    }
+    .sb-badge {
+      background: var(--color-primary-600);
+      color: white;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+    .sb-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--color-error);
+      border-radius: 50%;
+    }
+    .sb-search-wrap {
+      padding: var(--space-4);
+      position: relative;
+    }
+    .sb-search-input {
+      width: 100%;
+      height: 32px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-default);
+      background: var(--color-bg-secondary);
+      padding: 0 var(--space-2) 0 32px;
+      font-size: var(--font-size-sm);
+      outline: none;
+    }
+    .sb-search-input:focus {
+      border-color: var(--color-border-focus);
+      box-shadow: var(--focus-ring);
+      background: var(--color-bg-primary);
+    }
+    .sb-search-icon-pos {
+      position: absolute;
+      left: 24px;
+      top: 25px;
+      color: var(--color-text-muted);
+    }
+    .sb-user-zone {
+      margin-top: auto;
+      border-top: 1px solid var(--color-border-default);
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      align-items: center;
+    }
+    .sb-avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--color-primary-100);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary-700);
+      font-weight: 700;
+      font-size: 12px;
+      margin-right: var(--space-2);
+    }
+    .sb-user-info { flex: 1; overflow: hidden; }
+    .sb-user-name { font-size: var(--font-size-sm); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sb-user-role { font-size: 11px; color: var(--color-text-muted); }
+    .sb-logout { color: var(--color-text-muted); cursor: pointer; transition: var(--transition-fast); }
+    .sb-logout:hover { color: var(--color-error); }
+    .sb-level-3 { padding-left: calc(var(--space-4) + 48px) !important; }
+    .sidebar-collapsed {
+      width: var(--size-sidebar-collapsed);
+    }
+    .sidebar-collapsed .sb-item {
+      justify-content: center;
+      padding: 12px 0;
+    }
+    .sidebar-collapsed .sb-label, 
+    .sidebar-collapsed .sb-section-separator, 
+    .sidebar-collapsed .sb-chevron {
+      display: none;
+    }
+    .sidebar-collapsed .sb-icon {
+      margin-right: 0;
+    }
+    .sb-tooltip {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--color-slate-800);
+      color: white;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      white-space: nowrap;
+      margin-left: 8px;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-fast);
+      z-index: 10;
+    }
+    .sb-item:hover .sb-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+    .sidebar-dark {
+      background: var(--color-slate-900);
+      border-color: var(--color-slate-800);
+    }
+    .sidebar-dark .sb-item {
+      color: var(--color-slate-400);
+    }
+    .sidebar-dark .sb-item:hover {
+      background: var(--color-slate-800);
+      color: white;
+    }
+    .sidebar-dark .sb-item.active {
+      background: var(--color-primary-900);
+      color: white;
+    }
+    .sidebar-dark .sb-section-separator {
+      background-color: var(--color-slate-700);
+    }
+    .sidebar-dark .sb-user-zone {
+      border-color: var(--color-slate-800);
+    }
+    .sidebar-dark .sb-user-name { color: white; }
+    .sidebar-dark .sb-user-role { color: var(--color-slate-500); }
+  </style>
+</head>
+<body>
+<div class="max-w-[1200px] mx-auto">
+<h1 class="text-[32px] font-bold text-[var(--color-text-primary)]">FILE 11. Sidebar Menu</h1>
+<p class="text-[14px] text-[var(--color-text-secondary)] mt-2">8 sidebar menu variants arranged in a grid</p>
+<hr class="border-none border-t border-[var(--color-border-default)] my-6"/>
+<div class="variants-grid">
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">1. Basic Expanded</h3>
+<div class="sidebar-container">
+<div class="pt-2"></div>
+<a class="sb-item active" href="#">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></span>
+<span class="sb-label">Dashboard</span>
+</a>
+<a class="sb-item" href="#">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+<span class="sb-label">User Management</span>
+</a>
+<a class="sb-item" href="#">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
+<span class="sb-label">Order Center</span>
+</a>
+<div class="sb-section-separator"></div>
+<a class="sb-item" href="#">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
+<span class="sb-label">System Settings</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">2. With Sub-Menu</h3>
+<div class="sidebar-container">
+<div class="pt-2"></div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></span>
+<span class="sb-label">Dashboard</span>
+</div>
+<div class="sb-item open" onclick="toggleActive(this)">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+<span class="sb-label">System Settings</span>
+<span class="sb-chevron"><svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg></span>
+</div>
+<div class="sb-submenu">
+<a class="sb-item" href="#">Account Security</a>
+<a class="sb-item active" href="#">Notifications</a>
+<a class="sb-item" href="#">Permissions</a>
+<a class="sb-item" href="#">Data Backup</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">3. With Badges</h3>
+<div class="sidebar-container">
+<div class="pt-2"></div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
+<span class="sb-label">Order Center</span>
+<span class="sb-badge">12</span>
+</div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span>
+<span class="sb-label">Notifications</span>
+<span class="sb-dot ml-auto"></span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">4. Collapsed</h3>
+<div class="sidebar-container sidebar-collapsed">
+<div class="pt-2"></div>
+<div class="sb-item active">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></span>
+<div class="sb-tooltip">Dashboard</div>
+</div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></span>
+<div class="sb-tooltip">Users</div>
+</div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
+<div class="sb-tooltip">Orders</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">5. With Search</h3>
+<div class="sidebar-container">
+<div class="sb-search-wrap">
+<svg class="sb-search-icon-pos" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+<input class="sb-search-input" placeholder="Search menu..." type="text"/>
+</div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></span>
+<span class="sb-label">Dashboard</span>
+</div>
+<div class="sb-item">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+<span class="sb-label">Data Reports</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">6. With User Zone</h3>
+<div class="sidebar-container">
+<div class="pt-2"></div>
+<div class="sb-item active">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></span>
+<span class="sb-label">Dashboard</span>
+</div>
+<div class="sb-user-zone">
+<div class="sb-avatar">JS</div>
+<div class="sb-user-info">
+<div class="sb-user-name">John Smith</div>
+<div class="sb-user-role">Admin</div>
+</div>
+<div class="sb-logout" title="Logout">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">7. Multi-Level</h3>
+<div class="sidebar-container">
+<div class="pt-2"></div>
+<div class="sb-item open" onclick="toggleActive(this)">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+<span class="sb-label">Settings</span>
+<span class="sb-chevron"><svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg></span>
+</div>
+<div class="sb-submenu">
+<div class="sb-item open" onclick="toggleActive(this)">
+<span class="sb-label">Permissions</span>
+<span class="sb-chevron"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="12"><path d="m9 18 6-6-6-6"></path></svg></span>
+</div>
+<div class="sb-submenu">
+<a class="sb-item sb-level-3" href="#">User Roles</a>
+<a class="sb-item sb-level-3 active" href="#">Access Control</a>
+<a class="sb-item sb-level-3" href="#">Logs</a>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-[14px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">8. Dark Theme</h3>
+<div class="sidebar-container sidebar-dark">
+<div class="pt-2"></div>
+<a class="sb-item active" href="#">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></span>
+<span class="sb-label">Dashboard</span>
+</a>
+<a class="sb-item" href="#">
+<span class="sb-icon"><svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></span>
+<span class="sb-label">Order Center</span>
+</a>
+<div class="sb-section-separator"></div>
+<div class="sb-user-zone">
+<div class="sb-avatar">JS</div>
+<div class="sb-user-info">
+<div class="sb-user-name">John Smith</div>
+<div class="sb-user-role">Super Admin</div>
+</div>
+<div class="sb-logout">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path></svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script data-purpose="interaction-handlers">function toggleActive(el) {
+      el.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+
+</body></html>

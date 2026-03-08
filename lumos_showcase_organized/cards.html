@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FILE 4. Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#137fec",
+          "background-light": "#f6f7f8",
+          "background-dark": "#101922",
+        },
+        fontFamily: {
+          "display": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3">
+<div class="flex items-center gap-4">
+<div class="size-6 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">LUMOS V2.0</h2>
+</div>
+</header>
+<h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Section A — Statistic Cards</h2>
+<div class="flex flex-wrap gap-4 p-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Revenue</p>
+<p class="tracking-light text-2xl font-bold leading-tight">$12,345</p>
+<div class="flex items-center gap-1 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<p class="text-sm font-medium leading-normal">+12%</p>
+</div>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Users</p>
+<p class="tracking-light text-2xl font-bold leading-tight">1,234</p>
+<div class="flex items-center gap-1 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<p class="text-sm font-medium leading-normal">+5%</p>
+</div>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Conversion Rate</p>
+<p class="tracking-light text-2xl font-bold leading-tight">5.67%</p>
+<div class="flex items-center gap-1 text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<p class="text-sm font-medium leading-normal">-2%</p>
+</div>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-6 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Average Order Value</p>
+<p class="tracking-light text-2xl font-bold leading-tight">$89.01</p>
+<div class="flex items-center gap-1 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<p class="text-sm font-medium leading-normal">+1%</p>
+</div>
+</div>
+</div>
+<h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Section B — Interactive Cards</h2>
+<div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-1">
+<p class="text-base font-bold leading-tight">Basic Card</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">This is a standard interactive card with description text and multiple action buttons for the user to choose from.</p>
+</div>
+<div class="flex gap-2 mt-auto pt-2">
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
+Primary Action
+</button>
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+Secondary
+</button>
+</div>
+</div>
+<div class="flex flex-col overflow-hidden rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div class="w-full h-40 bg-slate-200 dark:bg-slate-800 bg-cover bg-center" data-alt="Abstract colorful technology gradient background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBx3SIjRGRlsKO1TNeOth2pbolXVOu-wfoL811OvsymOsBNx_eGzirVDnqPTDULYAxcEwS4V6tK9wjUVKb-5AqyoPljKLK05CtWLEZfvyfmfhuVEL9e7SmYTt02906_N85fUB4xcfSSZqQvRvKKtYMOF05zRmJ0SPdlz81UqjteO_ZMeRh0wNphr3PnhLKpTx8EU2y-YMb_grWV5PmiaU6lnxEw7Tapw4VgbknAehHXGzGFOSfwFbV5GCzy-kB5MeYV3FFEKLc-iBHc')"></div>
+<div class="p-5 flex flex-col gap-2">
+<p class="text-base font-bold leading-tight">Media Card</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">A card featuring rich media at the top, suitable for blog posts, products, or highlighted content.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-900 p-6 border-2 border-primary shadow-sm relative cursor-pointer hover:shadow-md transition-shadow">
+<div class="absolute top-4 right-4 text-primary bg-primary/10 rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="flex flex-col gap-1 pr-8">
+<p class="text-base font-bold leading-tight">Selectable Card (Active)</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Used in selection grids where a user needs to pick one or more items. Displays active state styling.</p>
+</div>
+</div>
+<div class="flex flex-row overflow-hidden rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow col-span-1 md:col-span-2">
+<div class="w-1/3 min-w-[120px] bg-slate-200 dark:bg-slate-800 bg-cover bg-center" data-alt="Laptop code screen programming" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCO6aKSfN0uMRmQ2rWkrvgV2mtSckS-DwwRP85XOUyHiv3_vjrAAavvUStGytAuUng7LoqjbaQWv4zmYPvwcgc2c9tII6429yPQtdNcjTteUMm9DQYgnQrSL7QTfNu2xDQ0D8Zcwbx8R1OKpA13XsN6dvAyOytw-0rQlLT8sVshugcfeJEEh25g1IZCKkt-QfpVFfuV0xSIIKNZN0m9qm-5HvR651DXG9-0xP3MzCvGemCD6Jr_vb33oO65pK7kGvCG9obU6R-BG54')"></div>
+<div class="p-5 flex flex-col gap-2 flex-1 justify-center">
+<p class="text-base font-bold leading-tight">Horizontal Card</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">A horizontal layout perfect for list views, search results, or directories where vertical space is constrained but detail is needed.</p>
+<div class="mt-2">
+<button class="text-primary text-sm font-medium hover:underline flex items-center gap-1">
+Read more <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center gap-4 rounded-lg bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow text-center">
+<div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center border-2 border-white dark:border-slate-900 shadow-sm" data-alt="Portrait of John Smith professional" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6QlTvfYu7S9tMwW0SfCrIQ_u-vHV-Br_TrSTB9WbXXQgR5eWCPFDUZA2lQZ3zce7oDZUGuVdIQDPlRjaQb9NDaVed0jGZ_bah2mwZGhhT2HcZMd3cVa2hYh0em78peHfqhq7MVpL12PkX5hJOiLO1wiI3ZjxQylUlRLScycHvnrK8jhhlD04VxDUZ0c_2_Eeef4lvgUaM0LggrlWYHa-Zb-dH41KHtRvGJ19uLoh8Yw6hPcwOJtzO6koEFAAcU3rU2XD8yB4K6nto')"></div>
+<div class="flex flex-col gap-1">
+<p class="text-base font-bold leading-tight">John Smith</p>
+<p class="text-primary text-sm font-medium leading-normal">Senior PM</p>
+</div>
+<div class="flex gap-2 w-full mt-2">
+<button class="flex-1 flex items-center justify-center rounded-lg h-9 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+Message
+</button>
+<button class="flex-1 flex items-center justify-center rounded-lg h-9 bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors">
+View Profile
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-lg bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400">cloud_done</span>
+<p class="text-base font-bold leading-tight">LUMOS System</p>
+</div>
+<span class="text-xs font-medium px-2 py-1 bg-primary/10 text-primary rounded-full">12 days left</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex justify-between text-sm">
+<span class="text-slate-500 dark:text-slate-400">Storage Usage</span>
+<span class="font-medium">75%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</div>
+<h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 mt-4">Pricing Cards</h2>
+<div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+<div class="flex flex-col gap-6 rounded-lg bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div>
+<p class="text-base font-bold leading-tight mb-2">Basic</p>
+<p class="text-3xl font-bold">Free</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Forever free for individuals</p>
+</div>
+<ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> 1 Project</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Basic Analytics</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-[18px]">close</span> Priority Support</li>
+</ul>
+<button class="w-full flex items-center justify-center rounded-lg h-10 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors mt-auto">
+Sign Up
+</button>
+</div>
+<div class="flex flex-col gap-6 rounded-lg bg-white dark:bg-slate-900 p-8 border-2 border-primary shadow-md relative scale-105 z-10">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
+Most Popular
+</div>
+<div>
+<p class="text-base font-bold text-primary leading-tight mb-2">Pro</p>
+<div class="flex items-baseline gap-1">
+<p class="text-3xl font-bold">$199</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">/mo</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">For growing teams and businesses</p>
+</div>
+<ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Unlimited Projects</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Advanced Analytics</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Priority Support</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Custom Domains</li>
+</ul>
+<button class="w-full flex items-center justify-center rounded-lg h-10 bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors mt-auto">
+Get Started
+</button>
+</div>
+<div class="flex flex-col gap-6 rounded-lg bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+<div>
+<p class="text-base font-bold leading-tight mb-2">Enterprise</p>
+<p class="text-3xl font-bold">Custom</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">For large scale organizations</p>
+</div>
+<ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Everything in Pro</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> Dedicated Account Manager</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-[18px]">check</span> SSO / SAML</li>
+</ul>
+<button class="w-full flex items-center justify-center rounded-lg h-10 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors mt-auto">
+Contact Us
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

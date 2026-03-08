@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 1. Buttons</title>
+<style>
+    :root {--color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;--color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;--color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;--color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;--color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;--color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);--radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;--space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;--size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;--font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;--transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-family);
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      user-select: none;
+      gap: 8px;
+    }
+    .btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }.btn-sm {
+      height: var(--size-control-sm);
+      padding: 0 var(--space-3);
+      font-size: var(--font-size-sm);
+    }
+    .btn-md {
+      height: var(--size-control-md);
+      padding: 0 var(--space-4);
+      font-size: var(--font-size-base);
+    }
+    .btn-lg {
+      height: var(--size-control-lg);
+      padding: 0 var(--space-6);
+      font-size: var(--font-size-md);
+    }.btn-primary {
+      background: var(--color-primary-600);
+      color: var(--color-text-inverse);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--color-primary-700);
+    }
+    .btn-primary:disabled {
+      background: var(--color-slate-300);
+      color: var(--color-text-inverse);
+    }.btn-secondary {
+      background: var(--color-bg-primary);
+      border-color: var(--color-primary-600);
+      color: var(--color-primary-600);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--color-primary-50);
+    }.btn-ghost {
+      background: transparent;
+      color: var(--color-text-secondary);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--color-primary-50);
+      color: var(--color-primary-600);
+    }.btn-danger {
+      background: var(--color-error);
+      color: var(--color-text-inverse);
+    }
+    .btn-danger:hover:not(:disabled) {
+      background: #DC2626;}.btn-text {
+      background: transparent;
+      color: var(--color-primary-600);
+      padding: 0;
+      height: auto;
+    }
+    .btn-text:hover:not(:disabled) {
+      text-decoration: underline;
+    }.btn-icon-only {
+      padding: 0;
+      width: var(--size-control-md);
+    }
+    .btn-icon-only.btn-sm { width: var(--size-control-sm); }
+    .btn-icon-only.btn-lg { width: var(--size-control-lg); }
+    .btn-circle { border-radius: var(--radius-full); }.btn-group {
+      display: inline-flex;
+    }
+    .btn-group .btn {
+      border-radius: 0;
+      border: 1px solid var(--color-border-default);
+      background: var(--color-bg-primary);
+      color: var(--color-text-secondary);
+    }
+    .btn-group .btn:not(:last-child) {
+      border-right: none;
+    }
+    .btn-group .btn:first-child {
+      border-top-left-radius: var(--radius-md);
+      border-bottom-left-radius: var(--radius-md);
+    }
+    .btn-group .btn:last-child {
+      border-top-right-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
+    }
+    .btn-group .btn:hover {
+      background: var(--color-bg-hover);
+    }
+    .btn-group .btn.active {
+      background: var(--color-bg-active);
+      color: var(--color-primary-600);
+      border-color: var(--color-primary-600);
+      z-index: 1;
+    }.flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }@keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 1. Buttons</h1>
+<p class="page-desc">8 variants of buttons using the LUMOS V2.0 Design System constraints.</p>
+<hr class="divider"/>
+<h3 class="section-title">1. Primary</h3>
+<div class="flex-row">
+<button class="btn btn-primary btn-sm">Primary Small</button>
+<button class="btn btn-primary btn-md">Primary Medium</button>
+<button class="btn btn-primary btn-lg">Primary Large</button>
+<button class="btn btn-primary btn-md" disabled="">Disabled</button>
+<button class="btn btn-primary btn-md" disabled="">
+<svg class="spinner" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
+<line x1="12" x2="12" y1="2" y2="6"></line>
+<line x1="12" x2="12" y1="18" y2="22"></line>
+<line x1="4.93" x2="7.76" y1="4.93" y2="7.76"></line>
+<line x1="16.24" x2="19.07" y1="16.24" y2="19.07"></line>
+<line x1="2" x2="6" y1="12" y2="12"></line>
+<line x1="18" x2="22" y1="12" y2="12"></line>
+<line x1="4.93" x2="7.76" y1="19.07" y2="16.24"></line>
+<line x1="16.24" x2="19.07" y1="7.76" y2="4.93"></line>
+</svg>
+        Loading
+      </button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">2. Secondary</h3>
+<div class="flex-row">
+<button class="btn btn-secondary btn-md">Cancel</button>
+<button class="btn btn-secondary btn-md">Confirm</button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">3. Ghost</h3>
+<div class="flex-row">
+<button class="btn btn-ghost btn-md">Cancel</button>
+<button class="btn btn-ghost btn-md">Export</button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">4. Danger</h3>
+<div class="flex-row">
+<button class="btn btn-danger btn-md">Delete Account</button>
+<button class="btn btn-danger btn-md">Remove</button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">5. Text</h3>
+<div class="flex-row">
+<button class="btn btn-text btn-md">Create</button>
+<button class="btn btn-text btn-md" style="color: var(--color-text-secondary);">Cancel</button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">6. Icon Only</h3>
+<div class="flex-row">
+<button class="btn btn-secondary btn-icon-only btn-md">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+</button>
+<button class="btn btn-ghost btn-icon-only btn-md">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<polyline points="3 6 5 6 21 6"></polyline>
+<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+</svg>
+</button>
+<button class="btn btn-primary btn-icon-only btn-md btn-circle">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">7. Icon + Text</h3>
+<div class="flex-row">
+<button class="btn btn-primary btn-md">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="18">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+        Create
+      </button>
+<button class="btn btn-secondary btn-md">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="18">
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" x2="12" y1="15" y2="3"></line>
+</svg>
+        Export
+      </button>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">8. Button Group</h3>
+<div class="flex-row">
+<div class="btn-group">
+<button class="btn btn-md">Left</button>
+<button class="btn btn-md active">Center</button>
+<button class="btn btn-md">Right</button>
+</div>
+</div>
+</div>
+<script>
+    function toggleActive(el) { el.classList.toggle('active'); }
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+  </script>
+
+</body></html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LUMOS V2.0 - Upload Components</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-4 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined text-2xl">cloud_upload</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-[-0.015em]">LUMOS V2.0 Design System</h2>
+</div>
+</header>
+<div class="flex flex-1 justify-center py-10 px-4">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1 gap-12">
+<!-- 1. Dropzone -->
+<section>
+<h3 class="text-lg font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">1. Dropzone</h3>
+<div class="flex flex-col items-center gap-6 rounded-lg border-2 border-dashed border-primary/50 bg-primary/5 dark:bg-primary/10 px-6 py-14 transition-all duration-200 hover:bg-primary/10 hover:border-primary">
+<span class="material-symbols-outlined text-5xl text-primary">cloud_upload</span>
+<div class="flex max-w-[480px] flex-col items-center gap-2">
+<p class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight text-center">Drag &amp; Drop</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal text-center">or click to upload files</p>
+</div>
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary text-white text-sm font-bold leading-normal transition-colors hover:bg-primary/90">
+                                Browse Files
+                            </button>
+</div>
+</section>
+<!-- 2. Button Upload -->
+<section>
+<h3 class="text-lg font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">2. Button Upload</h3>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-6 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-slate-700">
+                                    Choose File
+                                </button>
+<span class="text-slate-500 dark:text-slate-400 text-sm">No file selected</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-6 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-slate-700">
+                                    Choose File
+                                </button>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">report_2024.pdf</span>
+</div>
+</div>
+</section>
+<!-- 3. Image Grid -->
+<section>
+<h3 class="text-lg font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">3. Image Grid</h3>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4 max-w-3xl">
+<div class="group relative bg-cover bg-center rounded-lg aspect-square overflow-hidden" data-alt="Abstract colorful liquid background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCbZA-zhuR7L8cwPU0zQuHBazGEcylsRuqDpbUlyRxD4Rcdwkv_99phuE37DyAsogm90l90XwLiYcu6Ty4ldNY6SsLtbXoLTLwm7N4npH6MpDB0unawdT_gIUCzgddIIY1LRbGqnGtyKAJUcu3evsBJGxeqeiimMARTo9D2WSHoRFZyXkQ_DrEeFnWd9Z-5Sx8r8M-wzkJ31U9H9RfRECOQDYrhb7P1o7_bLeTD2AJdoPUj9Gop9WxxHUO3RmfZ4cXRUPABcjEhtgqg');">
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors">
+<span class="material-symbols-outlined text-sm block">delete</span>
+</button>
+</div>
+</div>
+<div class="group relative bg-cover bg-center rounded-lg aspect-square overflow-hidden" data-alt="Abstract geometric shapes background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB44ct0Ros8aDIWNQLC2rtWkeoLBRptZtsnc97g8Q7z7AYho-f5CpcHuczfXzJ2C8MQcrgCudR4lwgpSkHpmzD2ayRFXL5YQSkdYePKRT95Q4xYV5oL0gDzAnp1sM9c7kDSqt7kIQIXAENP6NvnMyR2sID9qUspklzUtjleVW9q91D0XW1hwFzGpVG7TK71jYR-9-iMJW6GKkIblm7E4ehM4wNlKfNBMI81QxptUziBUTrpFIR8AniLc2yp-xh16Kzpgdmp3eykUFfT');">
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors">
+<span class="material-symbols-outlined text-sm block">delete</span>
+</button>
+</div>
+</div>
+<div class="group relative bg-cover bg-center rounded-lg aspect-square overflow-hidden" data-alt="Abstract bright gradient background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDfHpPrZEPs7trZ2-sJhiVX3W3L5upYoVInyQVOr0byzkE_RUL6US68AxZpAlwLYf1LBT80K-OKzFFKY_sK-K-4_GwsvagSAdvRXfrxGh5tBXp1y3nfP6X9pusXDtoEEPa_16QNeDRlIP3JCL4QASlW51TRzbzPZ_pX-IIM7NOVdzaEKbvzCmry3--H1-ZsQhLOX-tMJuZpQHVlRolAo2S4uYCg13mqR6BHqDxQHLt_hRaIt7X9A1HWdmDai2PHBMgXhzb5DUI1mA5Y');">
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors">
+<span class="material-symbols-outlined text-sm block">delete</span>
+</button>
+</div>
+</div>
+<button class="flex flex-col items-center justify-center rounded-lg aspect-square border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-600 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 mb-2">add</span>
+<span class="text-sm font-medium text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Add Image</span>
+</button>
+</div>
+</section>
+<!-- 4. File List -->
+<section>
+<h3 class="text-lg font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">4. File List</h3>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-4 flex-1">
+<span class="material-symbols-outlined text-slate-400 text-3xl">description</span>
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex justify-between items-center text-sm">
+<span class="font-medium text-slate-900 dark:text-slate-100">Annual_Report.pdf</span>
+<span class="text-slate-500">4.2 MB</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+<button class="ml-4 p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined block">delete</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 5. Avatar Upload -->
+<section>
+<h3 class="text-lg font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">5. Avatar Upload</h3>
+<div class="flex items-center gap-6">
+<div class="relative group cursor-pointer w-24 h-24 rounded-full overflow-hidden border-2 border-slate-200 dark:border-slate-700">
+<div class="w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center bg-cover bg-center" data-alt="Profile portrait of a person" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRwIyZ90b3SXisCfSPYPzuLwBUGNYOoQ8k2YA2-TMwQN7C8AMfvTgaorTxWdlp_4baovDagPiwVrusnrDzxj7g4Dw10jMP2eh2iUkP9W4ewoMnlhzAcj7pfRbhzJD7CXqNlVvU_txlcTQ1XRBrjgoNBwEvTwmOpD1ugiPwUa15v8c6tGw4v2vsivk10Cuw2P-OPlJFXwnCvRM0eITGEtIRU3DOhnes6uhQ8MeB5JNzkS1o86AgcrFENb2ErvjqenzP3Uo_Klq5960c');">
+</div>
+<div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white mb-1">photo_camera</span>
+<span class="text-white text-xs font-medium text-center px-1 leading-tight">Change<br/>Avatar</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm font-medium text-slate-900 dark:text-slate-100">Profile Picture</p>
+<p class="text-xs text-slate-500">JPG, GIF or PNG. Max size of 2MB.</p>
+</div>
+</div>
+</section>
+<!-- 6. Multi-State -->
+<section>
+<h3 class="text-lg font-bold mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">6. Multi-State</h3>
+<div class="flex flex-col gap-4">
+<!-- Uploading -->
+<div class="flex items-center gap-4 p-4 rounded-lg border border-primary/30 bg-primary/5 dark:bg-primary/10">
+<span class="material-symbols-outlined text-primary animate-spin">sync</span>
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex justify-between items-center text-sm">
+<span class="font-medium text-primary">Uploading...</span>
+<span class="text-primary/70">45%</span>
+</div>
+<div class="w-full bg-primary/20 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<!-- Success -->
+<div class="flex items-center gap-4 p-4 rounded-lg border border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">
+<div class="bg-green-500 rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-medium text-green-700 dark:text-green-400 text-sm">Upload Successful</span>
+<span class="text-green-600/70 dark:text-green-400/70 text-xs">financial_data_Q3.csv</span>
+</div>
+</div>
+<!-- Failed -->
+<div class="flex items-center gap-4 p-4 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/20">
+<div class="bg-red-500 rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">close</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-medium text-red-700 dark:text-red-400 text-sm">Upload Failed</span>
+<span class="text-red-600/70 dark:text-red-400/70 text-xs">Network error occurred</span>
+</div>
+<button class="text-sm font-medium text-primary hover:underline">Retry Upload</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</body></html>

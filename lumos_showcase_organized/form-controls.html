@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>FILE 2. Form Controls</title>
+<style>
+    :root {--color-primary-50: #EFF6FF;
+      --color-primary-100: #DBEAFE;
+      --color-primary-200: #BFDBFE;
+      --color-primary-300: #93C5FD;
+      --color-primary-400: #60A5FA;
+      --color-primary-500: #3B82F6;
+      --color-primary-600: #2563EB;
+      --color-primary-700: #1D4ED8;
+      --color-primary-800: #1E40AF;
+      --color-primary-900: #1E3A8A;--color-slate-50: #F8FAFC;
+      --color-slate-100: #F1F5F9;
+      --color-slate-200: #E2E8F0;
+      --color-slate-300: #CBD5E1;
+      --color-slate-400: #94A3B8;
+      --color-slate-500: #64748B;
+      --color-slate-600: #475569;
+      --color-slate-700: #334155;
+      --color-slate-800: #1E293B;
+      --color-slate-900: #0F172A;--color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --color-text-link: #2563EB;--color-success: #10B981;
+      --color-success-bg: #ECFDF5;
+      --color-warning: #F59E0B;
+      --color-warning-bg: #FFFBEB;
+      --color-error: #EF4444;
+      --color-error-bg: #FEF2F2;--color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F8FAFC;
+      --color-bg-tertiary: #F1F5F9;
+      --color-bg-hover: #F8FAFC;
+      --color-bg-active: #EFF6FF;
+      --color-bg-overlay: rgba(0, 0, 0, 0.4);
+      --color-surface-soft: #F1F5F9;--color-border-default: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #2563EB;--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-xl: 0 8px 24px rgba(0,0,0,0.10);--radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;--space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px;
+      --space-8: 32px; --space-10: 40px; --space-12: 48px;--size-control-sm: 32px;
+      --size-control-md: 36px;
+      --size-control-lg: 44px;
+      --size-header-height: 56px;
+      --size-sidebar-width: 220px;
+      --size-sidebar-collapsed: 56px;
+      --size-content-max-width: 1200px;--font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-size-xs: 12px;  --font-size-sm: 13px;
+      --font-size-base: 14px; --font-size-md: 16px;
+      --font-size-lg: 18px;  --font-size-xl: 20px;
+      --font-size-2xl: 24px;--transition-fast: all 0.15s ease;
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--color-bg-primary);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      padding: 40px;
+    }
+    .page-wrap { max-width: 960px; margin: 0 auto; }
+    .page-title { font-size: 32px; font-weight: 700; color: var(--color-text-primary); }
+    .page-desc { font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; }
+    .divider { border: none; border-top: 1px solid var(--color-border-default); margin: 24px 0; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--color-text-primary); }
+    .section-gap { height: 40px; }
+    .subsection-title { font-size: 14px; font-weight: 600; color: var(--color-text-secondary); margin: 24px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+    .flex-v { display: flex; flex-direction: column; gap: var(--space-2); }
+    .flex-h { display: flex; align-items: center; gap: var(--space-3); }.form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+    .form-label { font-size: var(--font-size-sm); font-weight: 500; color: var(--color-text-primary); }
+    .form-hint { font-size: var(--font-size-xs); color: var(--color-text-muted); }
+    .form-error-text { font-size: var(--font-size-xs); color: var(--color-error); display: flex; align-items: center; gap: 4px; }.input-wrap { position: relative; display: flex; align-items: center; width: 100%; }
+    .input-base {
+      width: 100%;
+      height: var(--size-control-md);
+      padding: 0 var(--space-3);
+      font-family: inherit;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      transition: var(--transition-fast);
+      outline: none;
+    }
+    .input-base::placeholder { color: var(--color-text-muted); }
+    .input-base:hover:not(:disabled) { border-color: var(--color-border-strong); }
+    .input-base:focus:not(:disabled) { border-color: var(--color-border-focus); box-shadow: var(--focus-ring); }
+    .input-base:disabled { background: var(--color-bg-secondary); color: var(--color-text-muted); cursor: not-allowed; }
+    .input-with-prefix { padding-left: 36px; }
+    .input-with-suffix { padding-right: 36px; }
+    .input-icon {
+      position: absolute;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .input-icon.prefix { left: 10px; }
+    .input-icon.suffix { right: 10px; pointer-events: auto; cursor: pointer; }
+    .input-icon.suffix:hover { color: var(--color-text-secondary); }
+    .input-error { border-color: var(--color-error); }
+    .input-error:focus:not(:disabled) { border-color: var(--color-error); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); }.floating-wrap { position: relative; width: 100%; }
+    .floating-input {
+      width: 100%;
+      height: var(--size-control-lg);
+      padding: 18px 12px 6px;
+      font-size: var(--font-size-sm);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      background: var(--color-bg-primary);
+      transition: var(--transition-fast);
+      outline: none;
+    }
+    .floating-label {
+      position: absolute;
+      left: 12px;
+      top: 14px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      transition: var(--transition-fast);
+      pointer-events: none;
+    }
+    .floating-input:focus, .floating-input:not(:placeholder-shown) { border-color: var(--color-border-focus); box-shadow: var(--focus-ring); }
+    .floating-input:focus + .floating-label, .floating-input:not(:placeholder-shown) + .floating-label {
+      transform: translateY(-8px) scale(0.8);
+      transform-origin: left top;
+      color: var(--color-primary-600);
+    }.select-sim { position: relative; width: 100%; user-select: none; }
+    .select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: var(--size-control-md);
+      padding: 0 var(--space-3);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .select-trigger:hover { border-color: var(--color-border-strong); }
+    .select-trigger.active { border-color: var(--color-border-focus); box-shadow: var(--focus-ring); }
+    .select-trigger.disabled { background: var(--color-bg-secondary); color: var(--color-text-muted); cursor: not-allowed; }
+    .select-icon { color: var(--color-text-muted); transition: transform 0.2s; }
+    .select-trigger.active .select-icon { transform: rotate(180deg); }
+    .select-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 100%;
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: var(--transition-fast);
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .select-sim.active .select-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .select-search { padding: var(--space-2); border-bottom: 1px solid var(--color-border-default); position: sticky; top: 0; background: var(--color-bg-primary); z-index: 2; }
+    .select-search-input { width: 100%; height: 30px; padding: 0 var(--space-2); font-size: var(--font-size-xs); border: 1px solid var(--color-border-default); border-radius: var(--radius-sm); outline: none; }
+    .select-search-input:focus { border-color: var(--color-border-focus); }
+    .select-item { padding: 8px 12px; font-size: var(--font-size-sm); cursor: pointer; transition: background 0.15s; display: flex; justify-content: space-between; align-items: center; }
+    .select-item:hover { background: var(--color-bg-hover); }
+    .select-item.selected { background: var(--color-primary-50); color: var(--color-primary-700); font-weight: 500; }
+    .select-group-label { padding: 8px 12px 4px; font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .tag-container { display: flex; gap: 4px; flex-wrap: wrap; }
+    .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-sm); padding: 2px 6px; font-size: 12px; }
+    .tag-close { cursor: pointer; color: var(--color-text-muted); display: flex; }
+    .tag-close:hover { color: var(--color-error); }.control-wrap { display: flex; align-items: flex-start; gap: var(--space-2); cursor: pointer; user-select: none; }
+    .control-wrap.disabled { cursor: not-allowed; opacity: 0.6; }
+    .control-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      border: 1px solid var(--color-border-strong);
+      background: var(--color-bg-primary);
+      transition: var(--transition-fast);
+      margin-top: 2px;
+    }
+    .control-wrap:hover:not(.disabled) .control-box { border-color: var(--color-primary-500); }
+    .control-wrap.active:not(.disabled) .control-box { background: var(--color-primary-600); border-color: var(--color-primary-600); }
+    .control-wrap.focus-visible .control-box { box-shadow: var(--focus-ring); }
+    .control-icon { color: white; opacity: 0; transition: var(--transition-fast); transform: scale(0.5); }
+    .control-wrap.active .control-icon { opacity: 1; transform: scale(1); }
+    .control-text { display: flex; flex-direction: column; gap: 2px; }
+    .control-label { font-size: var(--font-size-sm); color: var(--color-text-primary); line-height: 20px; }
+    .control-desc { font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 16px; }.checkbox-box { border-radius: var(--radius-sm); }
+    .checkbox-wrap.indeterminate .control-box { background: var(--color-primary-600); border-color: var(--color-primary-600); }
+    .checkbox-wrap.indeterminate .control-icon { opacity: 1; transform: scale(1); }.radio-box { border-radius: 50%; }
+    .radio-wrap.active .control-box::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: var(--transition-fast);
+    }
+    .radio-wrap.active .control-box::after { transform: scale(1); }.selectable-card {
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      transition: var(--transition-fast);
+      display: flex;
+      gap: var(--space-3);
+      align-items: flex-start;
+      cursor: pointer;
+    }
+    .selectable-card:hover { border-color: var(--color-border-strong); background: var(--color-bg-hover); }
+    .selectable-card.active { border-color: var(--color-primary-600); background: var(--color-primary-50); box-shadow: 0 0 0 1px var(--color-primary-600); }
+    .selectable-card.disabled { opacity: 0.6; cursor: not-allowed; background: var(--color-bg-secondary); }.toggle-wrap { display: flex; align-items: center; gap: var(--space-2); cursor: pointer; user-select: none; }
+    .toggle-wrap.disabled { cursor: not-allowed; opacity: 0.6; }
+    .toggle-track {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: var(--color-slate-300);
+      border-radius: 12px;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      padding: 0 2px;
+    }
+    .toggle-wrap:hover:not(.disabled) .toggle-track { background: var(--color-slate-400); }
+    .toggle-wrap.active .toggle-track { background: var(--color-primary-600); }
+    .toggle-wrap.active:hover:not(.disabled) .toggle-track { background: var(--color-primary-700); }
+    .toggle-wrap.focus-visible .toggle-track { box-shadow: var(--focus-ring); }
+    .toggle-thumb {
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .toggle-wrap.active .toggle-thumb { transform: translateX(20px); }
+    .toggle-sm .toggle-track { width: 32px; height: 18px; border-radius: 9px; }
+    .toggle-sm .toggle-thumb { width: 14px; height: 14px; }
+    .toggle-sm.active .toggle-thumb { transform: translateX(14px); }
+    .toggle-text { font-size: 10px; font-weight: 600; color: white; position: absolute; }
+    .toggle-text.on { left: 8px; opacity: 0; }
+    .toggle-text.off { right: 8px; opacity: 1; }
+    .toggle-wrap.active .toggle-text.on { opacity: 1; }
+    .toggle-wrap.active .toggle-text.off { opacity: 0; }
+    .toggle-icon { display: flex; color: var(--color-slate-400); }
+    .toggle-wrap.active .toggle-icon { color: var(--color-primary-600); }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+<h1 class="page-title">FILE 2. Form Controls</h1>
+<p class="page-desc">A comprehensive set of form components following the LUMOS V2.0 Design System.</p>
+<hr class="divider"/>
+<h3 class="section-title">1. Inputs</h3>
+<div class="grid-2">
+<div class="form-group">
+<label class="form-label">Basic Input</label>
+<div class="input-wrap">
+<input class="input-base" placeholder="Enter your name" type="text"/>
+</div>
+<div class="form-hint">Standard text input</div>
+</div>
+<div class="form-group">
+<label class="form-label" style="opacity:0">Floating</label>
+<div class="floating-wrap">
+<input class="floating-input" id="float1" placeholder=" " type="text"/>
+<label class="floating-label" for="float1">Email Address</label>
+</div>
+<div class="form-hint">Label floats on focus or value</div>
+</div>
+<div class="form-group">
+<label class="form-label">Search Input</label>
+<div class="input-wrap">
+<div class="input-icon prefix">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+</div>
+<input class="input-base input-with-prefix" placeholder="Search users..." type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Amount</label>
+<div class="input-wrap">
+<input class="input-base input-with-suffix" placeholder="0.00" style="padding-right: 48px;" type="text"/>
+<div class="input-icon suffix" style="right: 12px; pointer-events: none; color: var(--color-text-secondary); font-size: 13px; font-weight: 500;">
+            USD
+          </div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Password</label>
+<div class="input-wrap">
+<input class="input-base input-with-suffix" placeholder="Enter password" type="password" value="hunter2"/>
+<div class="input-icon suffix" onclick="this.previousElementSibling.type = this.previousElementSibling.type === 'password' ? 'text' : 'password'">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Username</label>
+<div class="input-wrap">
+<input class="input-base input-error input-with-suffix" type="text" value="admin123"/>
+<div class="input-icon suffix" style="color: var(--color-error); pointer-events: none;">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+</div>
+</div>
+<div class="form-error-text">This username is already taken.</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">2. Selects (Div-simulated)</h3>
+<div class="grid-2">
+<div class="form-group">
+<label class="form-label">Basic Select</label>
+<div class="select-sim dropdown" onclick="toggleActive(this)">
+<div class="select-trigger">
+<span>Select an option...</span>
+<svg class="select-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+<div class="select-dropdown">
+<div class="select-item">Option 1</div>
+<div class="select-item selected">
+              Option 2 
+              <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div class="select-item">Option 3</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Searchable Select</label>
+<div class="select-sim dropdown" onclick="toggleActive(this)">
+<div class="select-trigger">
+<span>United States</span>
+<svg class="select-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+<div class="select-dropdown" onclick="event.stopPropagation()">
+<div class="select-search">
+<input class="select-search-input" placeholder="Search countries..." type="text"/>
+</div>
+<div class="select-item">Canada</div>
+<div class="select-item">Mexico</div>
+<div class="select-item selected">United States</div>
+<div class="select-item">United Kingdom</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Multi-tag Select</label>
+<div class="select-sim dropdown" onclick="toggleActive(this)">
+<div class="select-trigger" style="height: auto; min-height: var(--size-control-md); padding: 4px 12px;">
+<div class="tag-container">
+<div class="tag">
+                Design 
+                <span class="tag-close"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="12"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div class="tag">
+                Development
+                <span class="tag-close"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="12"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+</div>
+<svg class="select-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+<div class="select-dropdown">
+<div class="select-item selected">Design <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+<div class="select-item selected">Development <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+<div class="select-item">Marketing</div>
+<div class="select-item">Sales</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Grouped Select</label>
+<div class="select-sim dropdown" onclick="toggleActive(this)">
+<div class="select-trigger">
+<span>Apple</span>
+<svg class="select-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+<div class="select-dropdown">
+<div class="select-group-label">Fruits</div>
+<div class="select-item selected">Apple</div>
+<div class="select-item">Banana</div>
+<div class="select-group-label" style="border-top: 1px solid var(--color-border-default); margin-top: 4px;">Vegetables</div>
+<div class="select-item">Carrot</div>
+<div class="select-item">Broccoli</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Disabled Select</label>
+<div class="select-sim">
+<div class="select-trigger disabled">
+<span>Not available</span>
+<svg class="select-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">3. Checkboxes</h3>
+<div class="grid-2">
+<div class="flex-v" style="gap: 16px;">
+<div class="control-wrap checkbox-wrap active" onclick="toggleActive(this)" tabindex="0">
+<div class="control-box checkbox-box">
+<svg class="control-icon" fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div class="control-text">
+<span class="control-label">Remember my device</span>
+</div>
+</div>
+<div class="control-wrap checkbox-wrap" onclick="toggleActive(this)" tabindex="0">
+<div class="control-box checkbox-box">
+<svg class="control-icon" fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div class="control-text">
+<span class="control-label">Email Notifications</span>
+<span class="control-desc">Receive daily summary emails of activity.</span>
+</div>
+</div>
+<div class="control-wrap checkbox-wrap indeterminate" onclick="this.classList.toggle('indeterminate')" tabindex="0">
+<div class="control-box checkbox-box">
+<svg class="control-icon" fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="10"><line x1="4" x2="20" y1="12" y2="12"></line></svg>
+</div>
+<div class="control-text">
+<span class="control-label">Select All (Partial)</span>
+</div>
+</div>
+<div class="control-wrap checkbox-wrap disabled active">
+<div class="control-box checkbox-box" style="background: var(--color-slate-300); border-color: var(--color-slate-300);">
+<svg class="control-icon" fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div class="control-text">
+<span class="control-label">Required setting (Disabled)</span>
+</div>
+</div>
+</div>
+<div class="flex-v">
+<div class="selectable-card active" onclick="toggleActive(this)" tabindex="0">
+<div class="control-wrap checkbox-wrap active" style="pointer-events: none;">
+<div class="control-box checkbox-box">
+<svg class="control-icon" fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+</div>
+<div class="control-text">
+<span class="control-label" style="font-weight: 600;">Pro Plan</span>
+<span class="control-desc" style="margin-top: 4px;">$29/month. Includes all premium features and priority support.</span>
+</div>
+</div>
+<div class="selectable-card" onclick="toggleActive(this)" tabindex="0">
+<div class="control-wrap checkbox-wrap" style="pointer-events: none;">
+<div class="control-box checkbox-box">
+<svg class="control-icon" fill="none" height="10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+</div>
+<div class="control-text">
+<span class="control-label" style="font-weight: 600;">Enterprise Plan</span>
+<span class="control-desc" style="margin-top: 4px;">Custom pricing. Dedicated account manager and SSO.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">4. Radios</h3>
+<div class="grid-2">
+<div class="flex-v" style="gap: 16px;">
+<div class="form-group">
+<label class="form-label" style="margin-bottom: 8px;">Visibility</label>
+<div class="flex-h">
+<div class="control-wrap radio-wrap active" onclick="selectRadio(this, 'grp1')" tabindex="0">
+<div class="control-box radio-box"></div>
+<span class="control-label">Public</span>
+</div>
+<div class="control-wrap radio-wrap" onclick="selectRadio(this, 'grp1')" tabindex="0">
+<div class="control-box radio-box"></div>
+<span class="control-label">Private</span>
+</div>
+</div>
+</div>
+<div class="control-wrap radio-wrap active" onclick="selectRadio(this, 'grp2')" tabindex="0">
+<div class="control-box radio-box"></div>
+<div class="control-text">
+<span class="control-label">Standard Shipping</span>
+<span class="control-desc">3-5 business days delivery.</span>
+</div>
+</div>
+<div class="control-wrap radio-wrap" onclick="selectRadio(this, 'grp2')" tabindex="0">
+<div class="control-box radio-box"></div>
+<div class="control-text">
+<span class="control-label">Express Shipping</span>
+<span class="control-desc">1-2 business days delivery.</span>
+</div>
+</div>
+<div class="control-wrap radio-wrap disabled">
+<div class="control-box radio-box"></div>
+<div class="control-text">
+<span class="control-label">Same Day (Not available)</span>
+</div>
+</div>
+</div>
+<div class="flex-v">
+<div class="selectable-card active" onclick="selectRadioCard(this, 'grp3')" tabindex="0">
+<div class="control-wrap radio-wrap active" style="pointer-events: none;">
+<div class="control-box radio-box"></div>
+</div>
+<div class="control-text">
+<span class="control-label" style="font-weight: 600;">Credit Card</span>
+<span class="control-desc" style="margin-top: 4px;">Pay securely with Visa, Mastercard, or Amex.</span>
+</div>
+</div>
+<div class="selectable-card" onclick="selectRadioCard(this, 'grp3')" tabindex="0">
+<div class="control-wrap radio-wrap" style="pointer-events: none;">
+<div class="control-box radio-box"></div>
+</div>
+<div class="control-text">
+<span class="control-label" style="font-weight: 600;">PayPal</span>
+<span class="control-desc" style="margin-top: 4px;">Redirect to PayPal to complete your purchase.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="section-gap"></div>
+<h3 class="section-title">5. Toggles (Div-simulated)</h3>
+<div class="grid-3">
+<div class="form-group">
+<label class="form-label" style="margin-bottom: 8px;">Basic Toggle</label>
+<div class="toggle-wrap active" onclick="toggleActive(this)" tabindex="0">
+<div class="toggle-track">
+<div class="toggle-thumb"></div>
+</div>
+<span class="control-label">Wi-Fi</span>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" style="margin-bottom: 8px;">With Text</label>
+<div class="toggle-wrap active" onclick="toggleActive(this)" tabindex="0">
+<div class="toggle-track" style="width: 52px;">
+<span class="toggle-text on">ON</span>
+<span class="toggle-text off">OFF</span>
+<div class="toggle-thumb" style="transform: translateX(28px);"></div>
+</div>
+<span class="control-label">Status</span>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" style="margin-bottom: 8px;">Small Toggle</label>
+<div class="toggle-wrap toggle-sm active" onclick="toggleActive(this)" tabindex="0">
+<div class="toggle-track">
+<div class="toggle-thumb"></div>
+</div>
+<span class="control-label">Compact</span>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" style="margin-bottom: 8px;">With Icon</label>
+<div class="toggle-wrap active" onclick="toggleActive(this)" tabindex="0">
+<div class="toggle-track">
+<div class="toggle-thumb">
+<svg class="toggle-icon" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" width="12"><path d="M20 6L9 17l-5-5"></path></svg>
+</div>
+</div>
+<span class="control-label">Sync</span>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" style="margin-bottom: 8px;">Disabled</label>
+<div class="flex-v">
+<div class="toggle-wrap disabled active">
+<div class="toggle-track">
+<div class="toggle-thumb"></div>
+</div>
+<span class="control-label">Locked On</span>
+</div>
+<div class="toggle-wrap disabled">
+<div class="toggle-track">
+<div class="toggle-thumb"></div>
+</div>
+<span class="control-label">Locked Off</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function toggleActive(el) { el.classList.toggle('active'); }
+    function selectRadio(el, groupName) {
+      if(el.classList.contains('disabled')) return;
+      // find siblings in same group visually (simplified for demo)
+      let parent = el.parentElement;
+      let siblings = parent.querySelectorAll('.radio-wrap');
+      siblings.forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function selectRadioCard(el, groupName) {
+      if(el.classList.contains('disabled')) return;
+      let parent = el.parentElement;
+      let siblings = parent.querySelectorAll('.selectable-card');
+      siblings.forEach(s => {
+        s.classList.remove('active');
+        s.querySelector('.radio-wrap').classList.remove('active');
+      });
+      el.classList.add('active');
+      el.querySelector('.radio-wrap').classList.add('active');
+    }
+    document.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown.active').forEach(function(d) {
+        if (!d.contains(e.target)) d.classList.remove('active');
+      });
+    });
+    // Handle focus states for keyboard navigation
+    document.querySelectorAll('[tabindex="0"]').forEach(el => {
+      el.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.click();
+        }
+      });
+      el.addEventListener('focus', () => el.classList.add('focus-visible'));
+      el.addEventListener('blur', () => el.classList.remove('focus-visible'));
+    });
+  </script>
+
+</body></html>

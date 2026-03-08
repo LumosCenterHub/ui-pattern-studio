@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lists, Alerts &amp; Stats - LUMOS V2.0 Design System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-8 md:px-20 lg:px-40 flex flex-1 justify-center py-8">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1 gap-12">
+<!-- Header Section -->
+<div class="flex flex-wrap justify-between gap-3 p-4 border-b border-slate-200 dark:border-slate-800 pb-8">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Lists, Alerts &amp; Stats</p>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">A collection of data display and feedback components</p>
+</div>
+</div>
+<!-- Search Bars Section -->
+<section class="flex flex-col gap-6">
+<h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 px-4">Search Bars</h2>
+<!-- Basic Search -->
+<div class="px-4">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all duration-200">
+<div class="text-slate-400 flex items-center justify-center pl-4 rounded-l-lg">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 bg-transparent border-none focus:outline-0 focus:ring-0 placeholder:text-slate-400 px-4 rounded-l-none pl-2 text-base font-normal leading-normal" placeholder="Search..." value=""/>
+</div>
+</label>
+</div>
+<!-- With Filter Search -->
+<div class="px-4">
+<div class="flex w-full h-12 items-stretch gap-3">
+<label class="flex flex-col flex-1 h-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all duration-200">
+<div class="text-slate-400 flex items-center justify-center pl-4 rounded-l-lg">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 bg-transparent border-none focus:outline-0 focus:ring-0 placeholder:text-slate-400 px-4 rounded-l-none pl-2 text-base font-normal leading-normal" placeholder="Search with filters..." value=""/>
+</div>
+</label>
+<button class="h-full px-4 flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:ring-2 focus:ring-primary focus:outline-none">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span>Filters</span>
+</button>
+</div>
+</div>
+<!-- Tabbed Search -->
+<div class="px-4 flex flex-col gap-3">
+<div class="flex h-10 w-fit items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-4 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm has-[:checked]:text-slate-900 dark:has-[:checked]:text-white text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal transition-all duration-200">
+<span class="truncate">All</span>
+<input checked="" class="invisible w-0" name="search-tabs" type="radio" value="All"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-4 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm has-[:checked]:text-slate-900 dark:has-[:checked]:text-white text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal transition-all duration-200">
+<span class="truncate">Users</span>
+<input class="invisible w-0" name="search-tabs" type="radio" value="Users"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-4 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm has-[:checked]:text-slate-900 dark:has-[:checked]:text-white text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal transition-all duration-200">
+<span class="truncate">Documents</span>
+<input class="invisible w-0" name="search-tabs" type="radio" value="Documents"/>
+</label>
+</div>
+<div class="flex w-full h-12 items-stretch gap-3">
+<label class="flex flex-col flex-1 h-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all duration-200">
+<div class="text-slate-400 flex items-center justify-center pl-4 rounded-l-lg">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 bg-transparent border-none focus:outline-0 focus:ring-0 placeholder:text-slate-400 px-4 rounded-l-none pl-2 text-base font-normal leading-normal" placeholder="Search in selected category..." value=""/>
+</div>
+</label>
+<button class="h-full px-6 flex items-center justify-center rounded-lg bg-primary text-white font-medium hover:bg-blue-600 transition-colors shadow-sm focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 focus:ring-primary focus:outline-none">
+                                    Search
+                                </button>
+</div>
+</div>
+</section>
+<!-- List Items Section -->
+<section class="flex flex-col gap-6">
+<h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 px-4">List Items</h2>
+<div class="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden mx-4 shadow-sm">
+<!-- Arrow List Item -->
+<div class="flex items-center gap-4 p-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors duration-200 group">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10 group-hover:bg-white dark:group-hover:bg-slate-700 shadow-sm transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal flex-1 truncate">System Preferences</p>
+</div>
+<div class="shrink-0 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Avatar List Item -->
+<div class="flex items-center gap-4 p-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200">
+<div class="flex items-center gap-4 flex-1">
+<div class="shrink-0 size-10 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm shadow-sm">
+                                        EC
+                                    </div>
+<div class="flex flex-col flex-1 truncate">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-tight">Emily Chen</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-normal">Senior PM</p>
+</div>
+</div>
+<div class="shrink-0">
+<a class="text-primary text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-all focus:outline-none focus:ring-2 focus:ring-primary rounded px-1" href="#">View Profile</a>
+</div>
+</div>
+<!-- Actions List Item -->
+<div class="flex items-center gap-4 p-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200 group">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-red-500 flex items-center justify-center rounded-lg bg-red-50 dark:bg-red-500/10 shrink-0 size-10 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col flex-1 truncate">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-tight truncate">Q4-Financial-Report.pdf</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-normal">2.4 MB</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<button aria-label="Download" class="p-2 text-slate-500 hover:text-primary hover:bg-primary/10 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+<button aria-label="Delete" class="p-2 text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-500">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Status List Item -->
+<div class="flex items-center gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+</div>
+<div class="flex flex-col flex-1 truncate">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-tight">Primary Database</p>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="size-2 rounded-full bg-emerald-500 shadow-[0_0_4px_rgba(16,185,129,0.4)]"></span>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-normal">Running</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stat Blocks Section -->
+<section class="flex flex-col gap-6">
+<h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 px-4">Stat Blocks</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
+<!-- Basic Stat -->
+<div class="flex flex-col p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Users</p>
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">84,205</p>
+</div>
+<!-- Trend Stat -->
+<div class="flex flex-col p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Revenue</p>
+<div class="flex items-end justify-between gap-2 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight leading-none">$128.5k</p>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 leading-normal">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                        12.5%
+                                    </span>
+</div>
+</div>
+<!-- Chart Stat -->
+<div class="flex flex-col p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Sessions</p>
+<div class="flex items-end justify-between gap-4 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight leading-none">1,492</p>
+<div class="flex items-end gap-1 h-8 opacity-70">
+<div class="w-1.5 bg-primary/40 rounded-t-sm h-[40%]"></div>
+<div class="w-1.5 bg-primary/60 rounded-t-sm h-[60%]"></div>
+<div class="w-1.5 bg-primary/30 rounded-t-sm h-[30%]"></div>
+<div class="w-1.5 bg-primary/80 rounded-t-sm h-[80%]"></div>
+<div class="w-1.5 bg-primary rounded-t-sm h-[100%]"></div>
+</div>
+</div>
+</div>
+<!-- Progress Stat -->
+<div class="flex flex-col p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm justify-between">
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Storage</p>
+<p class="text-slate-900 dark:text-white text-lg font-semibold tracking-tight">750 GB <span class="text-sm font-normal text-slate-400 dark:text-slate-500">/ 1 TB</span></p>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 mt-4 overflow-hidden">
+<div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Alerts Section -->
+<section class="flex flex-col gap-6 pb-20">
+<h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 px-4">Alerts</h2>
+<div class="flex flex-col gap-4 px-4">
+<!-- Info Alert -->
+<div class="flex gap-3 p-4 rounded-lg bg-blue-50 dark:bg-blue-500/10 border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary shrink-0 mt-0.5">info</span>
+<div class="flex flex-col gap-1">
+<p class="text-blue-900 dark:text-blue-200 font-semibold text-sm leading-tight">System Update Scheduled</p>
+<p class="text-blue-700 dark:text-blue-300 text-sm leading-relaxed">Maintenance will occur on Sunday at 2:00 AM PST. Expected downtime is 30 minutes.</p>
+</div>
+</div>
+<!-- Success Alert -->
+<div class="flex gap-3 p-4 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border-l-4 border-emerald-500">
+<span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">check_circle</span>
+<div class="flex flex-col gap-1">
+<p class="text-emerald-900 dark:text-emerald-200 font-semibold text-sm leading-tight">Deployment Successful</p>
+<p class="text-emerald-700 dark:text-emerald-300 text-sm leading-relaxed">Your application (v2.4.1) has been successfully deployed to the production environment.</p>
+</div>
+</div>
+<!-- Warning Alert -->
+<div class="flex gap-3 p-4 rounded-lg bg-amber-50 dark:bg-amber-500/10 border-l-4 border-amber-500">
+<span class="material-symbols-outlined text-amber-600 dark:text-amber-400 shrink-0 mt-0.5">warning</span>
+<div class="flex flex-col gap-1">
+<p class="text-amber-900 dark:text-amber-200 font-semibold text-sm leading-tight">Approaching Storage Limit</p>
+<p class="text-amber-700 dark:text-amber-300 text-sm leading-relaxed">You have used 92% of your allocated storage. Please upgrade your plan or clear unused files.</p>
+</div>
+</div>
+<!-- Error Alert -->
+<div class="flex gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-500/10 border-l-4 border-red-500">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400 shrink-0 mt-0.5">error</span>
+<div class="flex flex-col gap-2 w-full">
+<div class="flex flex-col gap-1">
+<p class="text-red-900 dark:text-red-200 font-semibold text-sm leading-tight">Database Connection Failed</p>
+<p class="text-red-700 dark:text-red-300 text-sm leading-relaxed">Unable to connect to the primary database cluster. The connection timed out after 30 seconds.</p>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<button class="text-sm font-medium text-red-700 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 focus:outline-none focus:underline transition-colors">View Logs</button>
+<button class="text-sm font-medium text-red-700 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 focus:outline-none focus:underline transition-colors">Retry Connection</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</body></html>
